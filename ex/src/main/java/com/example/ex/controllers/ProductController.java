@@ -1,6 +1,5 @@
 package com.example.ex.controllers;
 
-import com.example.ex.model.entity.Image;
 import com.example.ex.model.entity.Product;
 import com.example.ex.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +38,6 @@ public class ProductController {
         productService.saveProduct(product, file1, file2, file3);
         return "redirect:/";
     }
-
 
     @PostMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
