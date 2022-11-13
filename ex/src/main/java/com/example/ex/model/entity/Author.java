@@ -14,9 +14,12 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column
     private String fio;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "author_product",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
 

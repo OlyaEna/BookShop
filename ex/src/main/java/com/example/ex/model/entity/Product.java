@@ -22,16 +22,15 @@ public class Product {
     @Column(columnDefinition = "text")
     private String description;
     private int price;
+    @ManyToMany(mappedBy = "products")
+    private  List <Author> authors;
+    @ManyToMany(mappedBy = "products")
+    private List <Genre> genres;
+    @ManyToMany(mappedBy = "products")
+    private List <Bucket> buckets;
     @ManyToOne
     @JoinColumn
-    private Author author;
-    @ManyToOne
-    @JoinColumn
-    private Genre genre;
-    @ManyToOne
-    @JoinColumn
-    private Publisher publisher;
-
+    private Publisher publishers;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
             mappedBy = "product")
     private List<Image> images = new ArrayList<>();
