@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product </title>
+</head>
+<body>
+    <h1>Information about product</h1>
+    <tbody>
+    <tr th:each = "img : ${images}">
+        <td><img th:src="@{${'/images/${img.id}'}}"/></td>
+    </tr>
+    </tbody>
+    <div class="row">
+        <p> <strong>title:</strong> <span th:text="${product.title}"></span></p>
+        <p> <strong>price:</strong> <span th:text="${product.price}"></span></p>
+    </div>
+</body>
+</html>
