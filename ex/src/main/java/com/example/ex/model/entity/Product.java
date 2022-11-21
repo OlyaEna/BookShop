@@ -36,6 +36,8 @@ public class Product {
     private List<Image> images = new ArrayList<>();
     private Long previewImageId;
     private LocalDateTime dateOfCreated;
+    private boolean is_deleted;
+    private boolean is_activated;
 
 
     @PrePersist

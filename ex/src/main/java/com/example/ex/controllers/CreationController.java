@@ -1,5 +1,6 @@
 package com.example.ex.controllers;
 
+import com.example.ex.model.entity.Author;
 import com.example.ex.model.entity.Product;
 import com.example.ex.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +19,14 @@ public class CreationController {
     private final ProductService productService;
 
     @GetMapping("/create")
-    public String createPage(Model model){
+    public String createPage(Model model) {
         return "product-create";
     }
 
     @PostMapping("/create")
     public String createProduct(@RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
-                                @RequestParam("file3") MultipartFile file3, Product product) throws IOException {
-        productService.saveProduct(product, file1, file2, file3);
+                                @RequestParam("file3") MultipartFile file3, Product product, Author author) throws IOException {
+        productService.saveProduct(product, file1, file2, file3, author);
         return "redirect:/";
     }
 

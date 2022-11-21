@@ -12,6 +12,7 @@
 <div class="container mt-5">
     <h2 align="center">Search in Thymeleaf Template</h2>
     <a href="/create">Create New Product</a>
+    <a href="/genres">Genres</a>
     <form th:action="@{/}" method="get">
         <input type="text" name="title" th:value="${title}"  placeholder="Find by title" size="50" >
         <button type="submit" class="btn btn-info" >Search</button>

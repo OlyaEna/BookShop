@@ -1,5 +1,5 @@
 package com.example.ex.model.entity.enums;
 
 public enum Role {
-    USER, ADMIN
+    ROlE_USER, ROLE_ADMIN
 }
