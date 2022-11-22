@@ -1,11 +1,13 @@
 package com.example.ex.controllers;
 
 import com.example.ex.model.entity.Genre;
+import com.example.ex.model.repository.GenreRepository;
 import com.example.ex.service.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GenreController {
     private final GenreService genreService;
+    private final GenreRepository genreRepository;
 
     @GetMapping("/genres")
     public String genres(Model model) {
@@ -66,5 +69,26 @@ public class GenreController {
         return "redirect:/genres";
     }
 
+
+//    @GetMapping("/edit/{id}")
+//    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+//        Genre genre= genreRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+//
+//        model.addAttribute("genre", genre);
+//        return "update-genre";
+//    }
+//
+//    @PostMapping("/update/{id}")
+//    public String updateUser(@PathVariable("id") long id, Genre genre,
+//                             BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            genre.setId(id);
+//            return "update-genre";
+//        }
+//
+//        genreRepository.save(genre);
+//        return "redirect:/genres";
+//    }
 
 }

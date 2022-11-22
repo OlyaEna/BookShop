@@ -1,40 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>SEARCH</title>
+    <title>Books </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 </head>
 <body>
-<div class="container mt-5">
-    <h2 align="center">Search in Thymeleaf Template</h2>
-    <a href="/create">Create New Product</a>
-    <a href="/genres">Genres</a>
-    <form th:action="@{/}" method="get">
-        <input type="text" name="title" th:value="${title}"  placeholder="Find by title" size="50" >
-        <button type="submit" class="btn btn-info" >Search</button>
-    </form>
-    <table class="table table-bordered table-sm mt-2">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.title}">Product title</td>
-            <td th:text="${product.price}">Price</td>
-            <td>
-                <a th:href="@{/product/{id}(id=${product.id})}">About</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<h1>Information about books</h1>
+<div th:if="${size==0}">
+    <p>No Books in shop</p>
 </div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+    Create new book
+</button>
+<table class="table" th:if="${size>0}">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Authors</th>
+        <th scope="col">Genres</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">Price</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Image</th>
+        <th scope="col">Update</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <th scope="row" th:text="${product.title}"></th>
+        <td>
+                <li th:each="author: ${product.getAuthors()}" th:text="${author.getFio()}"></li>
+
+        </td>
+        <td>
+            <li th:each="genre: ${product.getGenres()}" th:text="${genre.getName()}"></li>
+        </td>
+        <td>
+            <li th:text="${product.publisher.name}"></li>
+        </td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.ISBN}"></td>
+        <td><img></img></td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
 </body>
 </html>

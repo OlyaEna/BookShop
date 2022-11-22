@@ -21,7 +21,7 @@ public class Product {
     private String title;
     @Column(columnDefinition = "text")
     private String description;
-    private int price;
+    private double price;
     @ManyToMany(mappedBy = "products")
     private  List <Author> authors;
     @ManyToMany(mappedBy = "products")
@@ -31,6 +31,7 @@ public class Product {
     @ManyToOne
     @JoinColumn
     private Publisher publishers;
+    private String ISBN;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
             mappedBy = "product")
     private List<Image> images = new ArrayList<>();
@@ -38,6 +39,9 @@ public class Product {
     private LocalDateTime dateOfCreated;
     private boolean is_deleted;
     private boolean is_activated;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
 
 
     @PrePersist

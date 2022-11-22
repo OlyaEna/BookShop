@@ -1,5 +1,6 @@
 package com.example.ex.service.impl;
 
+import com.example.ex.dto.ProductDto;
 import com.example.ex.model.entity.Author;
 import com.example.ex.model.entity.Image;
 import com.example.ex.model.entity.Product;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.ex.service.ProductService;
@@ -18,49 +20,46 @@ import com.example.ex.service.ProductService;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
-    public List<Product> listProducts(String title) {
-        if (title != null) return productRepository.findByTitle(title);
-        return productRepository.findAll();
+    @Override
+    public List<ProductDto> findAll() {
+        var products = productRepository.findAll();
+        var productsDto = new ArrayList<ProductDto>();
+        products.forEach(product -> {
+            var productDto = new ProductDto();
+            productDto.setId(product.getId());
+            productDto.setTitle(product.getTitle());
+            productDto.setDescription(product.getDescription());
+            productDto.setPrice(product.getPrice());
+            productDto.setPublisher(product.getPublishers());
+            productDto.setAuthors(product.getAuthors());
+            productDto.setGenres(product.getGenres());
+            productDto.setImage(product.getImage());
+            productDto.setActivated(product.is_activated());
+            productDto.setDeleted(product.is_deleted());
+            productDto.setISBN(product.getISBN());
+            productsDto.add(productDto);
+        });
+        return productsDto;
     }
 
-    public void saveProduct(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3, Author author) throws IOException {
-        Image image1;
-        Image image2;
-        Image image3;
-        if (file1.getSize() != 0) {
-            image1 = toImageEntity(file1);
-            image1.setPreviewImage(true);
-            product.addImageToProduct(image1);
-        }
-        if (file2.getSize() != 0) {
-            image2 = toImageEntity(file2);
-            product.addImageToProduct(image2);
-        }
-        if (file3.getSize() != 0) {
-            image3 = toImageEntity(file3);
-            product.addImageToProduct(image3);
-        }
-        Product productFromDb = productRepository.save(product);
-        productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());
-        productRepository.save(product);
+    @Override
+    public void enableProduct(Long id) {
+
     }
 
-    private Image toImageEntity(MultipartFile file) throws IOException {
-        Image image = new Image();
-        image.setName(file.getName());
-        image.setOriginalFileName(file.getOriginalFilename());
-        image.setContentType(file.getContentType());
-        image.setSize(file.getSize());
-        image.setBytes(file.getBytes());
-        return image;
-    }
-
+    @Override
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+
     }
 
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElse(null);
+    @Override
+    public Product save(ProductDto productDTO) {
+        return null;
+    }
+
+    @Override
+    public Product update(ProductDto productDTO) {
+        return null;
     }
 
 }
