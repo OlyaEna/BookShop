@@ -1,0 +1,9 @@
+<header th:insert="headers/header :: header" xmlns:sec="http://www.w3.org/1999/xhtml"></header>
+<title> Главная страница</title>
+<h1>Hello</h1>
+
+<div sec:authorize="hasRole('ROLE_USER')">Text visible to user.</div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">Text visible to admin.</div>
+
+</body>
+</html>
