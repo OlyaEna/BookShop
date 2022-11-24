@@ -1,0 +1,44 @@
+<header th:insert="headers/header :: header"></header>
+<title> Книги</title>
+<h5>Информация о книгах</h5>
+<div th:if="${size==0}">
+    <p>У вас еще нет книг в магазине!</p>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+    Добавить новую книгу!
+</button>
+<table class="table" th:if="${size>0}">
+    <thead>
+    <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Авторы</th>
+        <th scope="col">Жанры</th>
+        <th scope="col">Издатель</th>
+        <th scope="col">Цена</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Изображение</th>
+        <th scope="col">Обновить</th>
+        <th scope="col">Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <th scope="row" th:text="${product.title}"></th>
+        <td>
+            <li th:each="author: ${product.getAuthors()}" th:text="${author.getFio()}"></li>
+
+        </td>
+        <td>
+            <li th:each="genre: ${product.getGenres()}" th:text="${genre.getName()}"></li>
+        </td>
+        <td>
+            <li th:text="${product.publisher.name}"></li>
+        </td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.ISBN}"></td>
+        <td><img></img></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

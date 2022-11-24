@@ -1,6 +1,5 @@
 package com.example.ex.model.entity;
 
-import com.example.ex.model.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,32 +20,45 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-
     private String password;
-    @Column(name = "username", unique = true)
-    private String username;
-
-    private String phoneNumber;
     @Column(name = "email", unique = true)
     private String email;
-    private boolean active;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Bucket bucket;
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private List<Role> roles;
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Order> orders;
-    private LocalDateTime dateOfCreation;
+    private String name;
 
-    @PrePersist
-    private void init() {
-        dateOfCreation = LocalDateTime.now();
-    }
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+    )
+    private List<Role> roles = new ArrayList<>();
+
+
+
+//    private String lastName;
+
+//    @Transient
+//    private String passwordConfirm;
+//    @Column(name = "username", unique = true)
+//    private String username;
+//    private String phoneNumber;
+
+    //    private boolean active;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Bucket bucket;
+//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"))
+//    @Enumerated(EnumType.STRING)
+
+//    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+//    private List<Order> orders;
+//    private LocalDateTime dateOfCreation;
+
+//    @PrePersist
+//    private void init() {
+//        dateOfCreation = LocalDateTime.now();
+//    }
 
 
     @Override
@@ -78,6 +90,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return true;
     }
 }

@@ -26,8 +26,8 @@ public class Product {
     private  List <Author> authors;
     @ManyToMany(mappedBy = "products")
     private List <Genre> genres;
-    @ManyToMany(mappedBy = "products")
-    private List <Bucket> buckets;
+//    @ManyToMany(mappedBy = "products")
+//    private List <Bucket> buckets;
     @ManyToOne
     @JoinColumn
     private Publisher publishers;

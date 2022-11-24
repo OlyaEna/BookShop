@@ -1,10 +1,12 @@
 package com.example.ex.dto;
 
-import com.example.ex.model.entity.enums.Role;
+import com.example.ex.model.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
@@ -12,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDto {
     private Long id;
+    @NotEmpty
     private String firstName;
+    @NotEmpty
     private String lastName;
-    private String password;
-    private String username;
-    private String phoneNumber;
+    @NotEmpty(message = "Email should not be empty")
+    @Email
     private String email;
-    private boolean active;
-    private List<Role> roles;
-
+    @NotEmpty(message = "Password should be empty")
+    private String password;
 }

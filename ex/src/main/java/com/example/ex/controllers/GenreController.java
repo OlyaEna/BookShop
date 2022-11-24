@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -15,6 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/admin")
 public class GenreController {
     private final GenreService genreService;
     private final GenreRepository genreRepository;
@@ -26,7 +26,7 @@ public class GenreController {
         model.addAttribute("size", genres.size());
         model.addAttribute("title", "Genre");
         model.addAttribute("newGenre", new Genre());
-        return "genres";
+        return "admin/genre/genres";
     }
 
     @PostMapping("/genres/create")
@@ -48,47 +48,53 @@ public class GenreController {
         genreService.deleteGenre(id);
         return "redirect:/genres";
     }
-    @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
-    @ResponseBody
-    public Genre findById(Long id){
-        return genreService.findById(id);
+//    @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
+//    @ResponseBody
+//    public Genre findById(Long id) {
+//        return genreService.findById(id);
+//    }
+//
+//
+//    @GetMapping("/update-genre")
+//    public String update(Genre genre, RedirectAttributes attributes){
+//        try {
+//            genreService.update(genre);
+//            attributes.addFlashAttribute("success","Updated successfully");
+//        }catch (DataIntegrityViolationException e){
+//            e.printStackTrace();
+//            attributes.addFlashAttribute("failed", "Failed to update because duplicate name");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            attributes.addFlashAttribute("failed", "Error server");
+//        }
+//        return "redirect:/genres";
+//    }
+
+
+    @GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        Genre genre = genreRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid genre Id:" + id));
+
+        model.addAttribute("genre", genre);
+        return "admin/genre/update-genre";
     }
 
-    @GetMapping("/update-genre")
-    public String update(Genre genre, RedirectAttributes attributes){
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") long id, Genre genre, RedirectAttributes attributes) {
         try {
-            genreService.update(genre);
-            attributes.addFlashAttribute("success","Updated successfully");
-        }catch (DataIntegrityViolationException e){
+            genreRepository.save(genre);
+            attributes.addFlashAttribute("success", "Updated successfully");
+        } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Failed to update because duplicate name");
-        }catch (Exception e){
+            return "redirect:/genres";
+        } catch (Exception e) {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Error server");
+            return "redirect:/genres";
         }
         return "redirect:/genres";
     }
-
-
-//    @GetMapping("/edit/{id}")
-//    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-//        Genre genre= genreRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//
-//        model.addAttribute("genre", genre);
-//        return "update-genre";
-//    }
-//
-//    @PostMapping("/update/{id}")
-//    public String updateUser(@PathVariable("id") long id, Genre genre,
-//                             BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            genre.setId(id);
-//            return "update-genre";
-//        }
-//
-//        genreRepository.save(genre);
-//        return "redirect:/genres";
-//    }
 
 }

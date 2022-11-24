@@ -27,26 +27,26 @@ public class GenreServiceImpl implements GenreService {
         return genreRepository.save(genreSave);
     }
 
-    @Override
-    public Genre getGenreById(Long id) {
-        return genreRepository.findById(id).orElse(null);
-    }
+//    @Override
+//    public Genre getGenreById(Long id) {
+//        return genreRepository.findById(id).orElse(null);
+//    }
     @Override
     public Genre findById(Long id) {
         return genreRepository.findById(id).get();
     }
 
-    @Override
-    public Genre update(Genre genre) {
-        Genre genreUpdate = null;
-        try {
-            genreUpdate= genreRepository.findById(genre.getId()).get();
-            genreUpdate.setName(genre.getName());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return genreRepository.save(genreUpdate);
-    }
+//    @Override
+//    public Genre update(Genre genre) {
+//        Genre genreUpdate = null;
+//        try {
+//            genreUpdate= genreRepository.findById(genre.getId()).get();
+//            genreUpdate.setName(genre.getName());
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return genreRepository.save(genreUpdate);
+//    }
 
     @Override
     public void deleteGenre(Long id) {
