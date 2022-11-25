@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Книги</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+
+<form class="form-horizontal" th:action="@{/admin/products/save}" method="post" enctype="multipart/form-data"
+      th:object="${product}">
+
+    <!-- Form Name -->
+    <legend>Добавить Книгу</legend>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="product_name">НАЗВАНИЕ</label>
+        <div class="col-md-4">
+            <input id="product_name" th:field="*{title}" name="product_name" placeholder="PRODUCT NAME"
+                   class="form-control input-md"
+                   required="" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="description">ОПИСАНИЕ</label>
+        <div class="col-md-4">
+            <textarea class="form-control" id="description" th:field="*{description}" name="description"></textarea>
+        </div>
+    </div>
+
+
+    <!-- Select Basic -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" >АВТОР</label>
+        <div class="col-md-4">
+            <select id="authors" th:field="*{authors}" name="authors" class="form-control">
+                <option th:each="author:${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.fio}">
+                </option>
+            </select>
+<!--            <section th:each="author : ${authors}">-->
+<!--                <input type="checkbox" th:field="*{authors}" th:value="${author.id}" />-->
+<!--                <label th:for="${#ids.prev('authors')}" th:text="${author.fio}"></label>-->
+<!--            </section>-->
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="genres">ЖАНР</label>
+        <div class="col-md-4">
+            <select id="genres"  name="genres" class="form-control">
+                <option th:value="null">-ВЫБРАТЬ-</option>
+                <option th:each="genre:${genres}"
+                        th:value="${genre.id}"
+                        th:text="${genre.name}"></option>
+            </select>
+        </div>
+    </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="publisher">ИЗДАТЕЛЬ</label>
+                <div class="col-md-4">
+                    <select id="publisher" name="publisher" class="form-control">
+                        <option>-ВЫБРАТЬ-</option>
+                        <option th:each="pub:${publishers}"
+                                th:value="${pub.id}"
+                                th:text="${pub.name}"></option>
+                    </select>
+                </div>
+            </div>
+
+     Text input
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="price">ЦЕНА</label>
+        <div class="col-md-4">
+            <input id="price" name="price" th:field="*{price}" placeholder="PERCENTAGE DISCOUNT"
+                   class="form-control input-md" required="" type="text">
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="ISBN">ISBN</label>
+        <div class="col-md-4">
+            <input id="ISBN" name="ISBN" th:field="*{ISBN}" placeholder="PERCENTAGE DISCOUNT"
+                   class="form-control input-md" required="" type="text">
+
+        </div>
+    </div>
+
+
+    <!-- Text input-->
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="imageProduct">Image Product</label>
+                <div class="col-md-4">
+                    <input id="imageProduct" name="imageProduct" class="input-file" type="file">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+</body>
+</html>
