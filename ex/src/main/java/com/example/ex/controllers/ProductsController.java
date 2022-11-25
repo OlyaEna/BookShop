@@ -30,8 +30,6 @@ public class ProductsController {
     private final GenreService genreService;
     private final AuthorService authorService;
     private final PublisherService publisherService;
-    private final PublisherRepository publisherRepository;
-    private final AuthorRepository authorRepository;
 
     @GetMapping()
     public String products(Model model) {
@@ -46,6 +44,7 @@ public class ProductsController {
         List<Genre> genres = genreService.findAll();
         List<Author> authors = authorService.findAll();
         List<Publisher> publishers = publisherService.findAll();
+        model.addAttribute("authors", authors);
         model.addAttribute("genres", genres);
         model.addAttribute("publishers", publishers);
         model.addAttribute("product", new ProductDto());

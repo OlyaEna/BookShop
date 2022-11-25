@@ -21,7 +21,7 @@ public class ProductDto {
     private List <Author> authors;
     private Publisher publishers;
     private String image;
-    private boolean deleted;
-    private boolean activated;
+//    private boolean deleted;
+//    private boolean activated;
     private String ISBN;
 }

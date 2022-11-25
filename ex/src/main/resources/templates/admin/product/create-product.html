@@ -37,22 +37,19 @@
         <label class="col-md-4 control-label" >АВТОР</label>
         <div class="col-md-4">
             <select id="authors" th:field="*{authors}" name="authors" class="form-control">
+                <option th:value="null">-ВЫБРАТЬ-</option>
                 <option th:each="author:${authors}"
                         th:value="${author.id}"
                         th:text="${author.fio}">
                 </option>
             </select>
-<!--            <section th:each="author : ${authors}">-->
-<!--                <input type="checkbox" th:field="*{authors}" th:value="${author.id}" />-->
-<!--                <label th:for="${#ids.prev('authors')}" th:text="${author.fio}"></label>-->
-<!--            </section>-->
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-4 control-label" for="genres">ЖАНР</label>
         <div class="col-md-4">
-            <select id="genres"  name="genres" class="form-control">
+            <select id="genres"  th:field="*{genres}" name="genres" class="form-control">
                 <option th:value="null">-ВЫБРАТЬ-</option>
                 <option th:each="genre:${genres}"
                         th:value="${genre.id}"
@@ -63,8 +60,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="publisher">ИЗДАТЕЛЬ</label>
                 <div class="col-md-4">
-                    <select id="publisher" name="publisher" class="form-control">
-                        <option>-ВЫБРАТЬ-</option>
+                    <select id="publisher" th:field="*{publishers}" name="publisher" class="form-control">
+                        <option th:value="null">-ВЫБРАТЬ-</option>
                         <option th:each="pub:${publishers}"
                                 th:value="${pub.id}"
                                 th:text="${pub.name}"></option>

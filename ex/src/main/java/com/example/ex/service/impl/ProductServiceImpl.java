@@ -40,8 +40,8 @@ public class ProductServiceImpl implements ProductService {
             productDto.setAuthors(product.getAuthors());
             productDto.setGenres(product.getGenres());
             productDto.setImage(product.getImage());
-            productDto.setActivated(product.is_activated());
-            productDto.setDeleted(product.is_deleted());
+//            productDto.setActivated(product.is_activated());
+//            productDto.setDeleted(product.is_deleted());
             productDto.setISBN(product.getISBN());
             productDtoList.add(productDto);
         }
@@ -97,8 +97,8 @@ public class ProductServiceImpl implements ProductService {
             product.setAuthors(productDto.getAuthors());
             product.setGenres(productDto.getGenres());
             product.setISBN(productDto.getISBN());
-            product.set_activated(productDto.isActivated());
-            product.set_deleted(productDto.isDeleted());
+//            product.set_activated(productDto.isActivated());
+//            product.set_deleted(productDto.isDeleted());
             return productRepository.save(product);
         } catch (Exception e) {
             e.printStackTrace();
