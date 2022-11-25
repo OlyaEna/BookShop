@@ -22,15 +22,13 @@ public class WebSecurityConfig{
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-    // configure SecurityFilterChain
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/users", "/genres").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin(
                         form -> form

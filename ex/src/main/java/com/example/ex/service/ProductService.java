@@ -15,9 +15,9 @@ public interface ProductService {
 
     void deleteProduct(Long id);
 
-    Product save(ProductDto productDTO);
+    Product save(MultipartFile imageProduct, ProductDto productDto);
 
-    Product update(ProductDto productDTO);
+    Product update(ProductDto productDto);
 
 
 }

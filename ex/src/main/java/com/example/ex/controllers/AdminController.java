@@ -26,11 +26,6 @@ private final UserService userService;
     public String adminPage(Model model) {
         return "admin/admin";
     }
-    @GetMapping("/prob")
-    public String probPage(Model model) {
-        return "prob";
-    }
-
 //    private final UserDetailServiceImpl userDetailService;
 //
 //    @GetMapping("/admin")

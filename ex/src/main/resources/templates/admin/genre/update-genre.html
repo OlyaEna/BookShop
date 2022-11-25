@@ -1,12 +1,19 @@
-<header th:insert="headers/header :: header" ></header>
-<body>
-<form action="#"
-  th:action="@{/update/{id}(id=${genre.id})}"
-  th:object="${genre}"
-  method="post">
+<header th:insert="fragments/header :: header"></header>
+<div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <header th:insert="fragments/adminProductSide :: productSide"></header>
+            </ul>
+        </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<form th:action="@{/admin/genres/update/{id}(id=${genre.id})}"  th:object="${genre}"  method="post">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
     <input type="submit" value="Обновить жанр">
 </form>
+    </main>
+</div>
 </body>
 </html>

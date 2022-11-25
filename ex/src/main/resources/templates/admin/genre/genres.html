@@ -1,165 +1,116 @@
-<header th:insert="headers/header :: header" ></header>
+<header th:insert="fragments/header :: header"></header>
 
 <div class="row">
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
             <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-shopping-cart">
-                            <circle cx="9" cy="21" r="1"></circle>
-                            <circle cx="20" cy="21" r="1"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
-                        Продукты
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-file">
-                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
-                            <polyline points="13 2 13 9 20 9"></polyline>
-                        </svg>
-                        Заказы
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-users">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                        Покупатели
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-layers">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
-                        Integrations
-                    </a>
-                </li>
-
+                <header th:insert="fragments/adminProductSide :: productSide"></header>
             </ul>
         </div>
     </nav>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-<h5>Информация о жанрах</h5>
-<div th:if="${size==0}">
-    <p>У вас еще нет добавленых жанров!</p>
-</div>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">
-    Добавить новый жанр!
-</button>
-
-<!--<Вывод ошибок и обновлений >-->
-<div th:if="${success}" class="text-center alert alert-success">
-    <p th:text="${success}"></p>
-</div>
-
-<div th:if="${failed}" class="text-center alert alert-danger">
-    <p th:text="${failed}"></p>
-</div>
-
-<div th:if="${duplicatedFailed}" class="text-center alert alert-danger">
-    <p th:text="${duplicatedFailed}"></p>
-</div>
-<!--<Вывод ошибок и обновлений>-->
-
-<!--<Таблица жанров>-->
-<table class="table" th:if="${size>0}">
-    <thead class="thead-light">
-    <tr>
-            <th scope="col"> Жанр</th>
-        <th scope="col">Действие</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="genre : ${genres}">
-        <td th:text="${genre.name}"></td>
-        <td>
-<!--            <a id="editButton" th:href="@{/findById/(id =${genre.id})}" class="btn btn-primary">Edit</a>-->
-            <a th:href="@{/genres/delete/{id}(id=${genre.id})}" class="btn btn-danger"> Delete</a>
-            <a th:href="@{/edit/{id}(id=${genre.id})}" class="btn btn-primary">Update</a></td>
-
-        </td>
-    </tr>
-    </tbody>
-</table>
-<script th:src="@{/js/genre.js}"></script>
-<!--<Таблица жанров>-->
-
-<!--<Создание жанров>-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <form th:action="@{/genres/create}" method="post" th:object="${newGenre}">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Genre</h5>
-                </div>
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" th:field="*{name}" id="recipient-name">
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </div>
+        <h5>Информация о жанрах</h5>
+        <div th:if="${size==0}">
+            <p>У вас еще нет добавленых жанров!</p>
         </div>
-    </form>
-</div>
-<!--<Создание жанра>-->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                data-whatever="@mdo">
+            Добавить новый жанр!
+        </button>
 
-<!--&lt;!&ndash;Изменение названия жанра&ndash;&gt;-->
-<!--<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalExample"-->
-<!--     aria-hidden="true">-->
-<!--    <form th:action="@{/update-genre}" method="put">-->
-<!--        <div class="modal-dialog" role="document">-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title">Edit Genre</h5>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="idEdit" class="col-form-label">Id:</label>-->
-<!--                        <input type="text" class="form-control" id="idEdit" name="id" readonly>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="nameEdit" class="col-form-label">Name:</label>-->
-<!--                        <input type="text" class="form-control" id="nameEdit" name="name">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <button type="button" class="btn btn-secondary" data-b-dismiss="modal">Close</button>-->
-<!--                    <button type="submit" class="btn btn-primary">Save</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</div>-->
-<!---->
+        <!--<Вывод ошибок и обновлений >-->
+        <div th:if="${success}" class="text-center alert alert-success">
+            <p th:text="${success}"></p>
+        </div>
 
-<!--<script th:src="@{/js/genre.js}"></script>-->
+        <div th:if="${failed}" class="text-center alert alert-danger">
+            <p th:text="${failed}"></p>
+        </div>
+
+        <div th:if="${duplicatedFailed}" class="text-center alert alert-danger">
+            <p th:text="${duplicatedFailed}"></p>
+        </div>
+        <!--<Вывод ошибок и обновлений>-->
+
+        <!--<Таблица жанров>-->
+        <table class="table" th:if="${size>0}">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"> Жанр</th>
+                <th scope="col">Действие</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="genre : ${genres}">
+                <td th:text="${genre.name}"></td>
+                <td>
+                    <!--            <a id="editButton" th:href="@{/findById/(id =${genre.id})}" class="btn btn-primary">Edit</a>-->
+                    <a th:href="@{/admin/genres/delete/{id}(id=${genre.id})}" class="btn btn-danger"> Delete</a>
+                    <a th:href="@{/admin/genres/edit/{id}(id=${genre.id})}" class="btn btn-primary">Update</a></td>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--<Таблица жанров>-->
+
+        <!--<Создание жанров>-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form th:action="@{/admin/genres/create}" method="post" th:object="${newGenre}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Genre</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" th:field="*{name}" id="recipient-name">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--<Создание жанра>-->
+
+        <!--&lt;!&ndash;Изменение названия жанра&ndash;&gt;-->
+        <!--<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalExample"-->
+        <!--     aria-hidden="true">-->
+        <!--    <form th:action="@{/update-genre}" method="put">-->
+        <!--        <div class="modal-dialog" role="document">-->
+        <!--            <div class="modal-content">-->
+        <!--                <div class="modal-header">-->
+        <!--                    <h5 class="modal-title">Edit Genre</h5>-->
+        <!--                </div>-->
+        <!--                <div class="modal-body">-->
+        <!--                    <div class="form-group">-->
+        <!--                        <label for="idEdit" class="col-form-label">Id:</label>-->
+        <!--                        <input type="text" class="form-control" id="idEdit" name="id" readonly>-->
+        <!--                    </div>-->
+        <!--                    <div class="form-group">-->
+        <!--                        <label for="nameEdit" class="col-form-label">Name:</label>-->
+        <!--                        <input type="text" class="form-control" id="nameEdit" name="name">-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="modal-footer">-->
+        <!--                    <button type="button" class="btn btn-secondary" data-b-dismiss="modal">Close</button>-->
+        <!--                    <button type="submit" class="btn btn-primary">Save</button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    </form>-->
+        <!--</div>-->
+        <!---->
+
+        <!--<script th:src="@{/js/genre.js}"></script>-->
     </main>
 </div>
 </body>

@@ -19,7 +19,7 @@ public class ProductDto {
     private double price;
     private List <Genre> genres;
     private List <Author> authors;
-    private Publisher publisher;
+    private Publisher publishers;
     private String image;
     private boolean deleted;
     private boolean activated;

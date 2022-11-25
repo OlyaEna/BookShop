@@ -14,12 +14,12 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/admin/genres")
 public class GenreController {
     private final GenreService genreService;
     private final GenreRepository genreRepository;
 
-    @GetMapping("/genres")
+    @GetMapping()
     public String genres(Model model) {
         List<Genre> genres = genreService.findAll();
         model.addAttribute("genres", genres);
@@ -29,7 +29,7 @@ public class GenreController {
         return "admin/genre/genres";
     }
 
-    @PostMapping("/genres/create")
+    @PostMapping("/create")
     public String createGenre(@ModelAttribute("newGenre") Genre genre, RedirectAttributes redirectAttributes) {
         try {
             genreService.saveGenre(genre);
@@ -40,13 +40,13 @@ public class GenreController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("failed", "Failed");
         }
-        return "redirect:/genres";
+        return "redirect:/admin/genres";
     }
 
-    @GetMapping("/genres/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteGenre(@PathVariable(value = "id") Long id) {
         genreService.deleteGenre(id);
-        return "redirect:/genres";
+        return "redirect:/admin/genres";
     }
 //    @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
 //    @ResponseBody
@@ -88,13 +88,13 @@ public class GenreController {
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Failed to update because duplicate name");
-            return "redirect:/genres";
+            return "redirect:/admin/genres";
         } catch (Exception e) {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Error server");
-            return "redirect:/genres";
+            return "redirect:/admin/genres";
         }
-        return "redirect:/genres";
+        return "redirect:/admin/genres";
     }
 
 }
