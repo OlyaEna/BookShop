@@ -10,6 +10,9 @@ import com.example.ex.model.repository.ProductRepository;
 import com.example.ex.utils.ImageUpload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,6 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.ex.service.ProductService;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 @RequiredArgsConstructor
@@ -28,23 +33,26 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findAll() {
-        List<ProductDto> productDtoList = new ArrayList<>();
-        var products = productRepository.findAll();
-        for (Product product: products) {
-            ProductDto productDto = new ProductDto();
-            productDto.setId(product.getId());
-            productDto.setTitle(product.getTitle());
-            productDto.setDescription(product.getDescription());
-            productDto.setPrice(product.getPrice());
-            productDto.setPublishers(product.getPublishers());
-            productDto.setAuthors(product.getAuthors());
-            productDto.setGenres(product.getGenres());
-            productDto.setImage(product.getImage());
-//            productDto.setActivated(product.is_activated());
-//            productDto.setDeleted(product.is_deleted());
-            productDto.setISBN(product.getISBN());
-            productDtoList.add(productDto);
-        }
+//        List<ProductDto> productDtoList = new ArrayList<>();
+//        var products = productRepository.findAll();
+//        for (Product product: products) {
+//            ProductDto productDto = new ProductDto();
+//            productDto.setId(product.getId());
+//            productDto.setTitle(product.getTitle());
+//            productDto.setDescription(product.getDescription());
+//            productDto.setPrice(product.getPrice());
+////            productDto.setPublishers(product.getPublishers());
+//            productDto.setAuthors(product.getAuthors());
+//            productDto.setGenres(product.getGenres());
+//            productDto.setImage(product.getImage());
+////            productDto.setActivated(product.is_activated());
+////            productDto.setDeleted(product.is_deleted());
+//            productDto.setISBN(product.getISBN());
+//            productDtoList.add(productDto);
+//        }
+//        return productDtoList;
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productDtoList = transfer(products);
         return productDtoList;
     }
 
@@ -93,10 +101,11 @@ public class ProductServiceImpl implements ProductService {
             product.setTitle(productDto.getTitle());
             product.setDescription(productDto.getDescription());
             product.setPrice(productDto.getPrice());
-            product.setPublishers(productDto.getPublishers());
             product.setAuthors(productDto.getAuthors());
             product.setGenres(productDto.getGenres());
             product.setISBN(productDto.getISBN());
+            product.setCategory(productDto.getCategory());
+            product.setPublisher(productDto.getPublisher());
 //            product.set_activated(productDto.isActivated());
 //            product.set_deleted(productDto.isDeleted());
             return productRepository.save(product);
@@ -106,6 +115,28 @@ public class ProductServiceImpl implements ProductService {
         }
 
     }
+
+//    @PostMapping("/save")
+//    public ModelAndView createGenre(@ModelAttribute("product") ProductDto productDto,
+//                                    @RequestParam("imageProduct") MultipartFile imageProduct,
+//                                    @RequestParam(value = "newAuthors") ArrayList<Long> authors,
+//                                    RedirectAttributes redirectAttributes) {
+//        try {
+//            final List<Author> newAuthors =
+//                    authors.stream()
+//                            .map(id -> authorService.findById(id))
+//                            .collect(Collectors.toList());
+//            productDto.setAuthors(newAuthors);
+//            productService.save(imageProduct, productDto);
+//            redirectAttributes.addFlashAttribute("success", "Added successfully");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("failed", "Failed");
+//        }
+//        return new ModelAndView("redirect:/admin/products");
+//
+//    }
+
     @Override
     public void enableProduct(Long id) {
 
@@ -121,6 +152,25 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(ProductDto productDto) {
         return null;
+    }
+
+    private List<ProductDto> transfer(List<Product> products){
+        List<ProductDto> productDtoList = new ArrayList<>();
+        for(Product product : products){
+            ProductDto productDto = new ProductDto();
+            productDto.setId(product.getId());
+            productDto.setTitle(product.getTitle());
+            productDto.setDescription(product.getDescription());
+            productDto.setPrice(product.getPrice());
+            productDto.setAuthors(product.getAuthors());
+            productDto.setGenres(product.getGenres());
+            productDto.setISBN(product.getISBN());
+            productDto.setImage(product.getImage());
+            productDto.setCategory(product.getCategory());
+            productDto.setPublisher(product.getPublisher());
+            productDtoList.add(productDto);
+        }
+        return productDtoList;
     }
 
 }

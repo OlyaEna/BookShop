@@ -1,6 +1,7 @@
 package com.example.ex.dto;
 
 import com.example.ex.model.entity.Author;
+import com.example.ex.model.entity.Category;
 import com.example.ex.model.entity.Genre;
 import com.example.ex.model.entity.Publisher;
 import lombok.AllArgsConstructor;
@@ -17,11 +18,15 @@ public class ProductDto {
     private String title;
     private String description;
     private double price;
-    private List <Genre> genres;
-    private List <Author> authors;
-    private Publisher publishers;
+    //    private List <Genre> genres;
+//    private List <Author> authors;
+    private List<Genre> genres;
+    private List<Author> authors;
+    private Publisher publisher;
     private String image;
-//    private boolean deleted;
+    private Category category;
+    //    private boolean deleted;
 //    private boolean activated;
     private String ISBN;
+
 }

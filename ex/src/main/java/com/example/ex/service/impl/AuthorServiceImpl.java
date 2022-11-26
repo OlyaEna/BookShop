@@ -1,6 +1,7 @@
 package com.example.ex.service.impl;
 
 import com.example.ex.model.entity.Author;
+import com.example.ex.model.entity.Genre;
 import com.example.ex.model.repository.AuthorRepository;
 import com.example.ex.service.AuthorService;
 import lombok.RequiredArgsConstructor;
@@ -17,5 +18,8 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.findAll();
     }
 
+    public Author findById(Long id) {
+        return authorRepository.findById(id).get();
+    }
 
 }

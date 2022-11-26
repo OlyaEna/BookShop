@@ -15,8 +15,9 @@ import java.util.List;
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "publisher_id")
+
     private Integer id;
     private String name;
-    @OneToMany(mappedBy = "publishers", cascade = CascadeType.ALL)
-    private List<Product> products;
+
 }

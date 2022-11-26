@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "products")
@@ -28,10 +29,13 @@ public class Product {
     private List <Genre> genres;
 //    @ManyToMany(mappedBy = "products")
 //    private List <Bucket> buckets;
-    @ManyToOne
-    @JoinColumn
-    private Publisher publishers;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "publisher_id", referencedColumnName = "publisher_id")
+    private Publisher publisher;
     private String ISBN;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    private Category category;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
             mappedBy = "product")
     private List<Image> images = new ArrayList<>();
