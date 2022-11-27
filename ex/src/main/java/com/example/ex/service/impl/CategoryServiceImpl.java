@@ -12,10 +12,20 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    private final CategoryRepository repo;
+    private final CategoryRepository categoryRepository;
 
     public List<Category> findAll() {
-        return repo.findAll();
+        return categoryRepository.findAll();
+    }
+
+    @Override
+    public Category saveCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+        categoryRepository.deleteById(id);
     }
 
 }

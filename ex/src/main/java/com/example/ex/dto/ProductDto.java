@@ -1,9 +1,6 @@
 package com.example.ex.dto;
 
-import com.example.ex.model.entity.Author;
-import com.example.ex.model.entity.Category;
-import com.example.ex.model.entity.Genre;
-import com.example.ex.model.entity.Publisher;
+import com.example.ex.model.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +17,9 @@ public class ProductDto {
     private double price;
     //    private List <Genre> genres;
 //    private List <Author> authors;
-    private List<Genre> genres;
-    private List<Author> authors;
+    private Genre genre;
+    private Author  author;
+    private Series series;
     private Publisher publisher;
     private String image;
     private Category category;

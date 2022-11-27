@@ -21,8 +21,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public Genre saveGenre(Genre genre) {
-        Genre genreSave=new Genre(genre.getName());
-        return genreRepository.save(genreSave);
+        return genreRepository.save(genre);
     }
 
 //    @Override

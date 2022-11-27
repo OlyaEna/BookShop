@@ -1,29 +1,18 @@
 package com.example.ex.service.impl;
 
 import com.example.ex.dto.ProductDto;
-import com.example.ex.dto.UserDto;
-import com.example.ex.model.entity.Author;
-import com.example.ex.model.entity.Image;
 import com.example.ex.model.entity.Product;
-import com.example.ex.model.entity.User;
 import com.example.ex.model.repository.ProductRepository;
 import com.example.ex.utils.ImageUpload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.example.ex.service.ProductService;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 @RequiredArgsConstructor
@@ -101,9 +90,10 @@ public class ProductServiceImpl implements ProductService {
             product.setTitle(productDto.getTitle());
             product.setDescription(productDto.getDescription());
             product.setPrice(productDto.getPrice());
-            product.setAuthors(productDto.getAuthors());
-            product.setGenres(productDto.getGenres());
+            product.setAuthor(productDto.getAuthor());
+            product.setGenre(productDto.getGenre());
             product.setISBN(productDto.getISBN());
+            product.setSeries(productDto.getSeries());
             product.setCategory(productDto.getCategory());
             product.setPublisher(productDto.getPublisher());
 //            product.set_activated(productDto.isActivated());
@@ -113,7 +103,6 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
             return null;
         }
-
     }
 
 //    @PostMapping("/save")
@@ -137,33 +126,76 @@ public class ProductServiceImpl implements ProductService {
 //
 //    }
 
+//    @Override
+//    public void enableProduct(Long id) {
+//
+//    }
+//
+//    @Override
+//    public void deleteProduct(Long id) {
+//
+//    }
+
+
     @Override
-    public void enableProduct(Long id) {
+    public Product update(MultipartFile imageProduct, ProductDto productDto) {
+
+        try {
+            Product product = productRepository.getReferenceById(productDto.getId());
+            if (imageProduct == null) {
+                product.setImage(product.getImage());
+            } else {
+                if (imageUpload.checkExisted(imageProduct) == false) {
+                    imageUpload.uploadImage(imageProduct);
+                }
+                product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
+            }
+            product.setTitle(productDto.getTitle());
+            product.setDescription(productDto.getDescription());
+            product.setPrice(productDto.getPrice());
+            product.setAuthor(productDto.getAuthor());
+            product.setGenre(productDto.getGenre());
+            product.setISBN(productDto.getISBN());
+            product.setSeries(productDto.getSeries());
+            product.setCategory(productDto.getCategory());
+            product.setPublisher(productDto.getPublisher());
+            return productRepository.save(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
     }
 
     @Override
-    public void deleteProduct(Long id) {
-
+    public ProductDto getById(Long id) {
+        Product product = productRepository.getReferenceById(id);
+        ProductDto productDto = new ProductDto();
+        productDto.setId(product.getId());
+        productDto.setTitle(product.getTitle());
+        productDto.setDescription(product.getDescription());
+        productDto.setPrice(product.getPrice());
+        productDto.setAuthor(product.getAuthor());
+        productDto.setGenre(product.getGenre());
+        productDto.setSeries(product.getSeries());
+        productDto.setISBN(product.getISBN());
+        productDto.setImage(product.getImage());
+        productDto.setCategory(product.getCategory());
+        productDto.setPublisher(product.getPublisher());
+        return productDto;
     }
 
-
-
-    @Override
-    public Product update(ProductDto productDto) {
-        return null;
-    }
-
-    private List<ProductDto> transfer(List<Product> products){
+    private List<ProductDto> transfer(List<Product> products) {
         List<ProductDto> productDtoList = new ArrayList<>();
-        for(Product product : products){
+        for (Product product : products) {
             ProductDto productDto = new ProductDto();
             productDto.setId(product.getId());
             productDto.setTitle(product.getTitle());
             productDto.setDescription(product.getDescription());
             productDto.setPrice(product.getPrice());
-            productDto.setAuthors(product.getAuthors());
-            productDto.setGenres(product.getGenres());
+            productDto.setAuthor(product.getAuthor());
+            productDto.setGenre(product.getGenre());
+            productDto.setSeries(product.getSeries());
             productDto.setISBN(product.getISBN());
             productDto.setImage(product.getImage());
             productDto.setCategory(product.getCategory());

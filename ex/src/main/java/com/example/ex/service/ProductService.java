@@ -11,13 +11,14 @@ public interface ProductService {
 
     List<ProductDto> findAll();
 
-    void enableProduct(Long id);
-
-    void deleteProduct(Long id);
+//    void enableProduct(Long id);
+//
+//    void deleteProduct(Long id);
 
     Product save(MultipartFile imageProduct, ProductDto productDto);
 
-    Product update(ProductDto productDto);
+    Product update(MultipartFile imageProduct, ProductDto productDto);
+    ProductDto getById(Long id);
 
 
 }

@@ -19,15 +19,14 @@ public class Genre {
     private String name;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "genre_product",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+//    @ManyToMany
+//    @JoinTable(
+//            name = "genre_product",
+//            joinColumns = @JoinColumn(name = "genre_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id"))
+//    private List<Product> products;
+
+    @OneToMany(mappedBy="genre", fetch=FetchType.EAGER)
     private List<Product> products;
 
-    public Genre(String name) {
-        this.name = name;
-
-    }
 }

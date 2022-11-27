@@ -1,14 +1,10 @@
 package com.example.ex.service.impl;
 
-import com.example.ex.dto.ProductDto;
-import com.example.ex.model.entity.Category;
-import com.example.ex.model.entity.Product;
 import com.example.ex.model.entity.Publisher;
 import com.example.ex.model.repository.PublisherRepository;
 import com.example.ex.service.PublisherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Base64;
 import java.util.List;
@@ -23,6 +19,34 @@ public class PublisherServiceImpl implements PublisherService {
     public List<Publisher> findAll() {
         return publisherRepository.findAll();
     }
+
+    @Override
+    public Publisher savePublisher(Publisher publisher) {
+//        Publisher publisherSave = new Publisher(publisher.getName());
+        return publisherRepository.save(publisher);
+    }
+
+    @Override
+    public void deletePublisher(Long id) {
+        publisherRepository.deleteById(id);
+    }
+//
+//    @Override
+//    public void deleteById(Long id) {
+//        Publisher publisher = publisherRepository.getReferenceById(id);
+//        publisher.set_activated(false);
+//        publisher.set_deleted(true);
+//        publisherRepository.save(publisher);
+//
+//    }
+//
+//    @Override
+//    public void enabledById(Long id) {
+//        Publisher publisher = publisherRepository.getReferenceById(id);
+//        publisher.set_activated(true);
+//        publisher.set_deleted(false);
+//        publisherRepository.save(publisher);
+//    }
 
 //    @Override
 //    public Product save(MultipartFile imageProduct, ProductDto productDto) {

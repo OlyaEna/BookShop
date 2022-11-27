@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Книги</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -34,25 +34,46 @@
 
     <!-- Select Basic -->
     <div class="form-group">
-        <label class="col-md-4 control-label" >АВТОР</label>
+        <label class="col-md-4 control-label">АВТОР</label>
         <div class="col-md-4">
-<!--            <select id="authors" th:field="*{authors}" name="authors" multiple="multiple" class="form-control">-->
-<!--                <option th:value="null">-ВЫБРАТЬ-</option>-->
-<!--                <option th:each="author:${authors}"-->
-<!--                        th:value="${author.id}"-->
-<!--                        th:text="${author.fio}">-->
-<!--                </option>-->
-<!--            </select>-->
-<!--            <select th:name="authorId" multiple="multiple">-->
-<!--                <option th:each="a : ${authors}" th:value="${a.id}"-->
-<!--                        th:text="${a.id+' '+a.fio}">-->
-<!--                </option>-->
-<!--            </select>-->
-            <select id="authors"  th:field="*{authors}" name="authors" multiple="multiple" class="form-control">
-                <option th:value="null">-ВЫБРАТЬ-</option>
-                <option th:each="author:${authors}"
-                        th:value="${author.getId()}"
-                        th:text="${author.fio}"></option>
+            <!--            <select id="authors" th:field="*{authors}" name="authors" multiple="multiple" class="form-control">-->
+            <!--                <option th:value="null">-ВЫБРАТЬ-</option>-->
+            <!--                <option th:each="author:${authors}"-->
+            <!--                        th:value="${author.id}"-->
+            <!--                        th:text="${author.fio}">-->
+            <!--                </option>-->
+            <!--            </select>-->
+            <!--            <select th:name="authorId" multiple="multiple">-->
+            <!--                <option th:each="a : ${authors}" th:value="${a.id}"-->
+            <!--                        th:text="${a.id+' '+a.fio}">-->
+            <!--                </option>-->
+            <!--            </select>-->
+            <!--            <select id="newAuthors"   th:field="*{authors}" name="newAuthors" multiple="multiple" class="form-control">-->
+            <!--                <option th:value="null">-ВЫБРАТЬ-</option>-->
+            <!--                <option th:each="author:${authors}"-->
+            <!--                        th:value="${author.id}"-->
+            <!--                        th:text="${author.fio}"></option>-->
+            <!--            </select>-->
+
+            <select id="authors" th:field="*{author}" name="authors" class="form-control">
+                <option th:value="null">-SELECT-</option>
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.fio}">
+                </option>
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="categories">PRODUCT CATEGORY</label>
+        <div class="col-md-4">
+            <select id="categories" th:field="*{category}" name="categories" class="form-control">
+                <option th:value="null">-SELECT-</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}">
+                </option>
             </select>
         </div>
     </div>
@@ -60,39 +81,47 @@
     <div class="form-group">
         <label class="col-md-4 control-label" for="genres">ЖАНР</label>
         <div class="col-md-4">
-            <select id="genres"  th:field="*{genres}" name="genres" multiple="multiple" class="form-control">
-                <option th:value="null">-ВЫБРАТЬ-</option>
-                <option th:each="genre:${genres}"
+            <!--            <select id="genres"  th:field="*{genres}" name="genres" multiple="multiple" class="form-control">-->
+            <!--                <option th:value="null">-ВЫБРАТЬ-</option>-->
+            <!--                <option th:each="genre:${genres}"-->
+            <!--                        th:value="${genre.id}"-->
+            <!--                        th:text="${genre.name}"></option>-->
+            <!--            </select>-->
+            <select id="genres" th:field="*{genre}" name="genres" class="form-control">
+                <option th:value="null">-SELECT-</option>
+                <option th:each="genre : ${genres}"
                         th:value="${genre.id}"
-                        th:text="${genre.name}"></option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group" >
-        <label class="col-md-4 control-label" for="publishers">ИЗДАТЕЛЬ</label>
-        <div class="col-md-4">
-            <select id="publishers" th:field = "*{publisher}" name="categories" class="form-control">
-                <option th:value = "null">-SELECT-</option>
-                <option th:each = "publisher : ${publishers}"
-                        th:value = "${publisher.id}"
-                        th:text = "${publisher.name}">
+                        th:text="${genre.name}">
                 </option>
             </select>
         </div>
     </div>
 
-    <div class="form-group" >
-        <label class="col-md-4 control-label" for="categories">PRODUCT CATEGORY</label>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="publishers">ИЗДАТЕЛЬ</label>
         <div class="col-md-4">
-            <select id="categories" th:field = "*{category}"  name="categories" class="form-control">
-                <option th:value = "null">-SELECT-</option>
-                <option th:each = "category : ${categories}"
-                        th:value = "${category.id}"
-                        th:text = "${category.name}">
+            <select id="series" th:field="*{series}" name="series" class="form-control">
+                <option th:value="null">-SELECT-</option>
+                <option th:each="ser : ${series}"
+                        th:value="${ser.id}"
+                        th:text="${ser.name}">
                 </option>
             </select>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="publishers">ИЗДАТЕЛЬ</label>
+        <div class="col-md-4">
+            <select id="publishers" th:field="*{publisher}" name="categories" class="form-control">
+                <option th:value="null">-SELECT-</option>
+                <option th:each="publisher : ${publishers}"
+                        th:value="${publisher.id}"
+                        th:text="${publisher.name}">
+                </option>
+            </select>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <label class="col-md-4 control-label" for="price">ЦЕНА</label>
