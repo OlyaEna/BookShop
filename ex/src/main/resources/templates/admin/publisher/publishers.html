@@ -1,0 +1,86 @@
+<header th:insert="fragments/header :: header"></header>
+
+<div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <header th:insert="fragments/adminProductSide :: productSide"></header>
+            </ul>
+        </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <h5>Информация о издателях</h5>
+        <div th:if="${size==0}">
+            <p>У вас еще нет добавленых жанров!</p>
+        </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                data-whatever="@mdo">
+            Добавить нового издателя!
+        </button>
+
+        <!--<Вывод ошибок и обновлений >-->
+        <div th:if="${success}" class="text-center alert alert-success">
+            <p th:text="${success}"></p>
+        </div>
+
+        <div th:if="${failed}" class="text-center alert alert-danger">
+            <p th:text="${failed}"></p>
+        </div>
+
+        <div th:if="${duplicatedFailed}" class="text-center alert alert-danger">
+            <p th:text="${duplicatedFailed}"></p>
+        </div>
+        <!--<Вывод ошибок и обновлений>-->
+
+        <!--<Таблица жанров>-->
+        <table class="table" th:if="${size>0}">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"> Издатель</th>
+                <th scope="col">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="publisher : ${publishers}">
+                <td th:text="${publisher.name}"></td>
+                <td>
+                    <a th:href="@{/admin/publishers/edit/{id}(id=${publisher.id})}" class="btn btn-primary">Update</a>
+                    <a th:href="@{/admin/publishers/delete/{id}(id=${publisher.id})}" class="btn btn-danger"> Delete</a>
+
+                    <!--                    <a  th:href="@{/admin/publishers/delete-publisher/{id}(id=${publisher.id})}" class="btn btn-warning">Deleted</a>-->
+<!--                    <a  th:href="@{/admin/publishers/enable-publisher/{id}(id=${publisher.id})}" class="btn btn-primary">Enabled</a>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--<Таблица жанров>-->
+
+        <!--<Создание жанров>-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form th:action="@{/admin/publishers/create}" method="post" th:object="${newPublisher}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Новый Издатель</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" th:field="*{name}" id="recipient-name">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>
