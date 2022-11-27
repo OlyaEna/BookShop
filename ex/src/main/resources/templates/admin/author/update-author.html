@@ -1,0 +1,19 @@
+<header th:insert="fragments/header :: header"></header>
+<div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <header th:insert="fragments/adminProductSide :: productSide"></header>
+            </ul>
+        </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <form th:action="@{/admin/authors/update/{id}(id=${author.id})}"  th:object="${author}"  method="post">
+            <label for="fio">Name</label>
+            <input type="text" th:field="*{fio}" id="fio" placeholder="Name">
+            <input type="submit" value="Обновить автора">
+        </form>
+    </main>
+</div>
+</body>
+</html>
