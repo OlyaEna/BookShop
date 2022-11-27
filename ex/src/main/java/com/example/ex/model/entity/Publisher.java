@@ -1,15 +1,14 @@
 package com.example.ex.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "publishers")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Publisher {
@@ -19,7 +18,7 @@ public class Publisher {
 
     private Long id;
     private String name;
-//    private boolean is_deleted;
-//    private boolean is_activated;
+    private boolean is_deleted;
+    private boolean is_activated;
 
 }

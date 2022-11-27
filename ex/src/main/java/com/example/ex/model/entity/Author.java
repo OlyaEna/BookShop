@@ -1,15 +1,16 @@
 package com.example.ex.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "authors")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Author {
@@ -17,14 +18,17 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fio;
+    private boolean is_deleted;
+    private boolean is_activated;
+
     //    @ManyToMany
 //    @JoinTable(
 //            name = "author_product",
 //            joinColumns = @JoinColumn(name = "author_id"),
 //            inverseJoinColumns = @JoinColumn(name = "product_id"))
 //    private List<Product> products;
-
-    @OneToMany(mappedBy="author", fetch=FetchType.EAGER)
+//
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private List<Product> products;
 
 }

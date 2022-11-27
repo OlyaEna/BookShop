@@ -37,6 +37,7 @@
             <thead class="thead-light">
             <tr>
                 <th scope="col"> Серия</th>
+                <th scope="col">Активность</th>
                 <th scope="col">Действия</th>
             </tr>
             </thead>
@@ -44,8 +45,16 @@
             <tr th:each="series : ${series}">
                 <td th:text="${series.name}"></td>
                 <td>
+                    <a th:if="${series.activated == false}"
+                       th:href="@{/admin/series/enable-series/{id} (id = ${series.id})}"
+                       class="btn btn-warning">Enable</a>
+                    <a th:if="${series.deleted == false}"
+                       th:href="@{/admin/series/delete-series/{id} (id = ${series.id})}"
+                       class="btn btn-danger">Delete</a>
+                </td>
+                <td>
                     <a th:href="@{/admin/series/edit/{id}(id=${series.id})}" class="btn btn-primary">Update</a>
-                    <a th:href="@{/admin/series/delete/{id}(id=${series.id})}" class="btn btn-danger"> Delete</a>
+                    <a th:href="@{/admin/series/delete/{id}(id=${series.id})}" class="btn btn-danger"> Delete forever</a>
                 </td>
             </tr>
             </tbody>

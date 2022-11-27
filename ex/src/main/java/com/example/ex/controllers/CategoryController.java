@@ -1,5 +1,6 @@
 package com.example.ex.controllers;
 
+import com.example.ex.dto.CategoryDto;
 import com.example.ex.model.entity.Category;
 import com.example.ex.model.entity.Publisher;
 import com.example.ex.model.repository.CategoryRepository;
@@ -22,16 +23,16 @@ public class CategoryController {
 
     @GetMapping()
     public String publishers(Model model) {
-        List<Category> categories = categoryService.findAll();
+        List<CategoryDto> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         model.addAttribute("size", categories.size());
         model.addAttribute("title", "Category");
-        model.addAttribute("newCategory", new Category());
+        model.addAttribute("newCategory", new CategoryDto());
         return "admin/category/categories";
     }
 
     @PostMapping("/create")
-    public String createCategory(@ModelAttribute("newCategory") Category category, RedirectAttributes redirectAttributes) {
+    public String createCategory(@ModelAttribute("newCategory") CategoryDto category, RedirectAttributes redirectAttributes) {
         try {
             categoryService.saveCategory(category);
             redirectAttributes.addFlashAttribute("success", "Added successfully");
@@ -46,17 +47,15 @@ public class CategoryController {
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + id));
-
+        CategoryDto category = categoryService.findById(id);
         model.addAttribute("category", category);
         return "admin/category/update-category";
     }
 
     @PostMapping("/update/{id}")
-    public String updateCategory(@PathVariable("id") long id, Category category, RedirectAttributes attributes) {
+    public String updateCategory(@PathVariable("id") long id, CategoryDto category, RedirectAttributes attributes) {
         try {
-            categoryService.saveCategory(category);
+            categoryService.update(category);
             attributes.addFlashAttribute("success", "Updated successfully");
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
@@ -69,9 +68,34 @@ public class CategoryController {
         }
         return "redirect:/admin/categories";
     }
+
     @GetMapping("/delete/{id}")
     public String deleteCategory(@PathVariable(value = "id") Long id) {
         categoryService.deleteCategory(id);
+        return "redirect:/admin/categories";
+    }
+
+    @RequestMapping(value = "/enable-category/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String enabledCategory(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            categoryService.enableById(id);
+            attributes.addFlashAttribute("success", "Enabled successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to enabled!");
+        }
+        return "redirect:/admin/categories";
+    }
+
+    @RequestMapping(value = "/delete-category/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String deletedCategory(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            categoryService.deleteById(id);
+            attributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to deleted");
+        }
         return "redirect:/admin/categories";
     }
 

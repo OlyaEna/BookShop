@@ -1,5 +1,6 @@
 package com.example.ex.controllers;
 
+import com.example.ex.dto.SeriesDto;
 import com.example.ex.model.entity.Publisher;
 import com.example.ex.model.entity.Series;
 import com.example.ex.model.repository.SeriesRepository;
@@ -17,22 +18,20 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/admin/series")
 public class SeriesController {
-
-    private final SeriesRepository seriesRepository;
     private final SeriesService seriesService;
 
     @GetMapping()
     public String series(Model model) {
-        List<Series> series = seriesService.findAll();
+        List<SeriesDto> series = seriesService.findAll();
         model.addAttribute("series", series);
         model.addAttribute("size", series.size());
         model.addAttribute("title", "Series");
-        model.addAttribute("newSeries", new Series());
+        model.addAttribute("newSeries", new SeriesDto());
         return "admin/series/series";
     }
 
     @PostMapping("/create")
-    public String createSeries(@ModelAttribute("newSeries") Series series, RedirectAttributes redirectAttributes) {
+    public String createSeries(@ModelAttribute("newSeries") SeriesDto series, RedirectAttributes redirectAttributes) {
         try {
             seriesService.saveSeries(series);
             redirectAttributes.addFlashAttribute("success", "Added successfully");
@@ -47,17 +46,15 @@ public class SeriesController {
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Series series = seriesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid series Id:" + id));
-
+        SeriesDto series = seriesService.findById(id);
         model.addAttribute("series", series);
         return "admin/series/update-series";
     }
 
     @PostMapping("/update/{id}")
-    public String updateSeries(@PathVariable("id") long id, Series series, RedirectAttributes attributes) {
+    public String updateSeries(@PathVariable("id") long id, SeriesDto series, RedirectAttributes attributes) {
         try {
-            seriesService.saveSeries(series);
+            seriesService.update(series);
             attributes.addFlashAttribute("success", "Updated successfully");
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
@@ -74,6 +71,30 @@ public class SeriesController {
     @GetMapping("/delete/{id}")
     public String deleteSeries(@PathVariable(value = "id") Long id) {
         seriesService.deleteSeries(id);
+        return "redirect:/admin/series";
+    }
+
+    @RequestMapping(value = "/enable-series/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String enabledSeries(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            seriesService.enableById(id);
+            attributes.addFlashAttribute("success", "Enabled successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to enabled!");
+        }
+        return "redirect:/admin/series";
+    }
+
+    @RequestMapping(value = "/delete-series{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String deletedSeries(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            seriesService.deleteById(id);
+            attributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to deleted");
+        }
         return "redirect:/admin/series";
     }
 }

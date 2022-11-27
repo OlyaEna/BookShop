@@ -1,123 +1,136 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Книги</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
-<body>
-<form class="form-horizontal" th:action="@{/update/{id} (id = ${productDto.id})}" method="post" enctype="multipart/form-data" th:object = "${productDto}">
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="product_name">НАЗВАНИЕ</label>
-        <div class="col-md-4">
-            <input id="product_name" th:field="*{title}" name="product_name" placeholder="PRODUCT NAME"
-                   class="form-control input-md"
-                   required="" type="text">
+<header th:insert="fragments/header :: header"></header>
+<title>Редактировать Книгу</title>
+<div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <header th:insert="fragments/adminProductSide :: productSide"></header>
+            </ul>
         </div>
-    </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <form class="form-horizontal" th:action="@{/admin/products/update/{id} (id = ${productDto.id})}" method="post"
+              enctype="multipart/form-data" th:object="${productDto}">
 
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="description">ОПИСАНИЕ</label>
-        <div class="col-md-4">
-            <textarea class="form-control" id="description" th:field="*{description}" name="description"></textarea>
-        </div>
-    </div>
-
-
-    <!-- Select Basic -->
-    <div class="form-group">
-        <label class="col-md-4 control-label">АВТОР</label>
-        <div class="col-md-4">
-            <select id="authors" th:field="*{author}" name="authors" class="form-control">
-                <option th:value="null">-SELECT-</option>
-                <option th:each="author : ${authors}"
-                        th:value="${author.id}"
-                        th:text="${author.fio}">
-                </option>
-            </select>
-
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="categories">PRODUCT CATEGORY</label>
-        <div class="col-md-4">
-            <select id="categories" th:field="*{category}" name="categories" class="form-control">
-                <option th:value="null">-SELECT-</option>
-                <option th:each="category : ${categories}"
-                        th:value="${category.id}"
-                        th:text="${category.name}">
-                </option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="genres">ЖАНР</label>
-        <div class="col-md-4">
-            <select id="genres" th:field="*{genre}" name="genres" class="form-control">
-                <option th:value="null">-SELECT-</option>
-                <option th:each="genre : ${genres}"
-                        th:value="${genre.id}"
-                        th:text="${genre.name}">
-                </option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="publishers">ИЗДАТЕЛЬ</label>
-        <div class="col-md-4">
-            <select id="series" th:field="*{series}" name="series" class="form-control">
-                <option th:value="null">-SELECT-</option>
-                <option th:each="ser : ${series}"
-                        th:value="${ser.id}"
-                        th:text="${ser.name}">
-                </option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="publishers">ИЗДАТЕЛЬ</label>
-        <div class="col-md-4">
-            <select id="publishers" th:field="*{publisher}" name="categories" class="form-control">
-                <option th:value="null">-SELECT-</option>
-                <option th:each="publisher : ${publishers}"
-                        th:value="${publisher.id}"
-                        th:text="${publisher.name}">
-                </option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="price">ЦЕНА</label>
-        <div class="col-md-4">
-            <input id="price" name="price" th:field="*{price}" placeholder="PERCENTAGE DISCOUNT"
-                   class="form-control input-md" required="" type="text">
-
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="ISBN">ISBN</label>
-        <div class="col-md-4">
-            <input id="ISBN" name="ISBN" th:field="*{ISBN}" placeholder="PERCENTAGE DISCOUNT"
-                   class="form-control input-md" required="" type="text">
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-4">
+            <legend>Редактировать Книгу</legend>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="imageProduct">Image Product</label>
-                <img style="height: 40px; width: 40px;" th:src = "*{'data:image/jpeg;base64,' + {image}}">
+                <label class="col-md-4 control-label" for="product_name">НАЗВАНИЕ</label>
                 <div class="col-md-4">
-                    <input id="imageProduct" name="imageProduct" class="input-file" type="file">
+                    <input id="product_name" th:field="*{title}" name="product_name" placeholder="НАЗВАНИЕ КНИГИ"
+                           class="form-control input-md"
+                           required="" type="text">
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-</form>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="description">ОПИСАНИЕ</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" id="description" th:field="*{description}"
+                              name="description"></textarea>
+                </div>
+            </div>
+
+
+            <!-- Select Basic -->
+            <div class="form-group">
+                <label class="col-md-4 control-label">АВТОР</label>
+                <div class="col-md-4">
+                    <select id="authors" th:field="*{author}" name="authors" class="form-control">
+                        <option th:value="null">-ВЫБРАТЬ-</option>
+                        <option th:each="author : ${authors}"
+                                th:if="${author.activated}"
+                                th:value="${author.id}"
+                                th:text="${author.fio}">
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="categories">PRODUCT CATEGORY</label>
+                <div class="col-md-4">
+                    <select id="categories" th:field="*{category}" name="categories" class="form-control">
+                        <option th:value="null">-ВЫБРАТЬ-</option>
+                        <option th:each="category : ${categories}"
+                                th:if="${category.activated}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="genres">ЖАНР</label>
+                <div class="col-md-4">
+                    <select id="genres" th:field="*{genre}" name="genres" class="form-control">
+                        <option th:value="null">-ВЫБРАТЬ-</option>
+                        <option th:each="genre : ${genres}"
+                                th:if="${genre.activated}"
+                                th:value="${genre.id}"
+                                th:text="${genre.name}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="publishers">СЕРИЯ</label>
+                <div class="col-md-4">
+                    <select id="series" th:field="*{series}" name="series" class="form-control">
+                        <option th:value="null">-ВЫБРАТЬ-</option>
+                        <option th:each="ser : ${series}"
+                                th:if="${ser.activated}"
+                                th:value="${ser.id}"
+                                th:text="${ser.name}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="publishers">ИЗДАТЕЛЬ</label>
+                <div class="col-md-4">
+                    <select id="publishers" th:field="*{publisher}" name="categories" class="form-control">
+                        <option th:value="null">-ВЫБРАТЬ-</option>
+                        <option th:each="publisher : ${publishers}"
+                                th:if="${publisher.activated}"
+                                th:value="${publisher.id}"
+                                th:text="${publisher.name}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="price">ЦЕНА</label>
+                <div class="col-md-4">
+                    <input id="price" name="price" th:field="*{price}" placeholder="ЦЕНА"
+                           class="form-control input-md" required="" type="text">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ISBN">ISBN</label>
+                <div class="col-md-4">
+                    <input id="ISBN" name="ISBN" th:field="*{ISBN}" placeholder="ISBN"
+                           class="form-control input-md" required="" type="text">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="imageProduct">ИЗОБРАЖЕНИЕ</label>
+                        <img style="height: 40px; width: 40px;" th:src="*{'data:image/jpeg;base64,' + {image}}">
+                        <div class="col-md-4">
+                            <input id="imageProduct" name="imageProduct" class="input-file" type="file">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </main>
+</div>
 </body>
 </html>

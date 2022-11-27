@@ -1,5 +1,6 @@
 package com.example.ex.controllers;
 
+import com.example.ex.dto.GenreDto;
 import com.example.ex.model.entity.Genre;
 import com.example.ex.model.repository.GenreRepository;
 import com.example.ex.service.GenreService;
@@ -17,22 +18,21 @@ import java.util.List;
 @RequestMapping("/admin/genres")
 public class GenreController {
     private final GenreService genreService;
-    private final GenreRepository genreRepository;
 
     @GetMapping()
     public String genres(Model model) {
-        List<Genre> genres = genreService.findAll();
+        List<GenreDto> genres = genreService.findAll();
         model.addAttribute("genres", genres);
         model.addAttribute("size", genres.size());
         model.addAttribute("title", "Genre");
-        model.addAttribute("newGenre", new Genre());
+        model.addAttribute("newGenre", new GenreDto());
         return "admin/genre/genres";
     }
 
     @PostMapping("/create")
-    public String createGenre(@ModelAttribute("newGenre") Genre genre, RedirectAttributes redirectAttributes) {
+    public String createGenre(@ModelAttribute("newGenre") GenreDto genreDto, RedirectAttributes redirectAttributes) {
         try {
-            genreService.saveGenre(genre);
+            genreService.saveGenre(genreDto);
             redirectAttributes.addFlashAttribute("success", "Added successfully");
         } catch (DataIntegrityViolationException e) {
             redirectAttributes.addFlashAttribute("duplicatedFailed", "Duplicated name");
@@ -73,17 +73,15 @@ public class GenreController {
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Genre genre = genreRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid genre Id:" + id));
-
+        GenreDto genre = genreService.findById(id);
         model.addAttribute("genre", genre);
         return "admin/genre/update-genre";
     }
 
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, Genre genre, RedirectAttributes attributes) {
+    public String updateUser(@PathVariable("id") long id, GenreDto genre, RedirectAttributes attributes) {
         try {
-            genreRepository.save(genre);
+            genreService.update(genre);
             attributes.addFlashAttribute("success", "Updated successfully");
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
@@ -93,6 +91,30 @@ public class GenreController {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Error server");
             return "redirect:/admin/genres";
+        }
+        return "redirect:/admin/genres";
+    }
+
+    @RequestMapping(value = "/enable-genre/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String enabledAuthor(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            genreService.enableById(id);
+            attributes.addFlashAttribute("success", "Enabled successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to enabled!");
+        }
+        return "redirect:/admin/genres";
+    }
+
+    @RequestMapping(value = "/delete-genre/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String deletedAuthor(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            genreService.deleteById(id);
+            attributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to deleted");
         }
         return "redirect:/admin/genres";
     }

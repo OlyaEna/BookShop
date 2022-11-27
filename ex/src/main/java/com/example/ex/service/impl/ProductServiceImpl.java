@@ -5,6 +5,10 @@ import com.example.ex.model.entity.Product;
 import com.example.ex.model.repository.ProductRepository;
 import com.example.ex.utils.ImageUpload;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +48,52 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDto> productDtoList = transfer(products);
         return productDtoList;
     }
+
+
+    @Override
+    public void deleteById(Long id) {
+        Product product = productRepository.getReferenceById(id);
+        product.set_deleted(true);
+        product.set_activated(false);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void enableById(Long id) {
+        Product product = productRepository.getReferenceById(id);
+        product.set_activated(true);
+        product.set_deleted(false);
+        productRepository.save(product);
+    }
+
+    @Override
+    public Page<ProductDto> pageProducts(int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
+        List<ProductDto> products = transfer(productRepository.findAll());
+        Page<ProductDto> productPages = toPage(products, pageable);
+        return productPages;
+    }
+
+    @Override
+    public Page<ProductDto> searchProducts(int pageNo, String keyword) {
+        Pageable pageable = PageRequest.of(pageNo, 5);
+        List<ProductDto> productDtoList = transfer(productRepository.searchProductsList(keyword));
+        Page<ProductDto> products = toPage(productDtoList, pageable);
+        return products;
+    }
+    private Page toPage(List<ProductDto> list , Pageable pageable){
+        if(pageable.getOffset() >= list.size()){
+            return Page.empty();
+        }
+        int startIndex = (int) pageable.getOffset();
+        int endIndex = ((pageable.getOffset() + pageable.getPageSize()) > list.size())
+                ? list.size()
+                : (int) (pageable.getOffset() + pageable.getPageSize());
+        List subList = list.subList(startIndex, endIndex);
+        return new PageImpl(subList, pageable, list.size());
+    }
+
+
 
 //    public List<UserDto> findAllUsers() {
 //        List<User> users = userRepository.findAll();
@@ -96,8 +146,8 @@ public class ProductServiceImpl implements ProductService {
             product.setSeries(productDto.getSeries());
             product.setCategory(productDto.getCategory());
             product.setPublisher(productDto.getPublisher());
-//            product.set_activated(productDto.isActivated());
-//            product.set_deleted(productDto.isDeleted());
+            product.set_activated(true);
+            product.set_deleted(false);
             return productRepository.save(product);
         } catch (Exception e) {
             e.printStackTrace();
@@ -182,6 +232,8 @@ public class ProductServiceImpl implements ProductService {
         productDto.setImage(product.getImage());
         productDto.setCategory(product.getCategory());
         productDto.setPublisher(product.getPublisher());
+        productDto.setDeleted(product.is_deleted());
+        productDto.setActivated(product.is_activated());
         return productDto;
     }
 
@@ -200,6 +252,8 @@ public class ProductServiceImpl implements ProductService {
             productDto.setImage(product.getImage());
             productDto.setCategory(product.getCategory());
             productDto.setPublisher(product.getPublisher());
+            productDto.setDeleted(product.is_deleted());
+            productDto.setActivated(product.is_activated());
             productDtoList.add(productDto);
         }
         return productDtoList;

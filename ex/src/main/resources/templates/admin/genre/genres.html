@@ -37,17 +37,25 @@
             <thead class="thead-light">
             <tr>
                 <th scope="col"> Жанр</th>
-                <th scope="col">Действие</th>
+                <th scope="col">Активность</th>
+                <th scope="col">Действия</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="genre : ${genres}">
                 <td th:text="${genre.name}"></td>
-                <td>
-                    <!--            <a id="editButton" th:href="@{/findById/(id =${genre.id})}" class="btn btn-primary">Edit</a>-->
-                    <a th:href="@{/admin/genres/delete/{id}(id=${genre.id})}" class="btn btn-danger"> Delete</a>
-                    <a th:href="@{/admin/genres/edit/{id}(id=${genre.id})}" class="btn btn-primary">Update</a></td>
 
+                <td>
+                    <a th:if="${genre.activated == false}"
+                       th:href="@{/admin/genres/enable-genre/{id} (id = ${genre.id})}"
+                       class="btn btn-warning">Enable</a>
+                    <a th:if="${genre.deleted == false}"
+                       th:href="@{/admin/genres/delete-genre/{id} (id = ${genre.id})}"
+                       class="btn btn-danger">Delete</a>
+                </td>
+                <td>
+                    <a th:href="@{/admin/genres/edit/{id}(id=${genre.id})}" class="btn btn-primary">Update</a>
+                    <a th:href="@{/admin/genres/delete/{id}(id=${genre.id})}" class="btn btn-danger"> Delete forever</a>
                 </td>
             </tr>
             </tbody>

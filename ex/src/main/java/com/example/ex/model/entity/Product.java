@@ -1,8 +1,8 @@
 package com.example.ex.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +12,8 @@ import java.util.Optional;
 
 @Entity
 @Table(name = "products")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
@@ -23,7 +24,7 @@ public class Product {
     @Column(columnDefinition = "text")
     private String description;
     private double price;
-//    @ManyToMany(mappedBy = "products")
+    //    @ManyToMany(mappedBy = "products")
 //    private  List <Author> authors;
 //    @ManyToMany(mappedBy = "products")
 //    private List <Genre> genres;
@@ -45,18 +46,12 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "series_id")
     private Series series;
-
-//
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
-//            mappedBy = "product")
-//    private List<Image> images = new ArrayList<>();
-//    private Long previewImageId;
     private LocalDateTime dateOfCreated;
-//    private boolean is_deleted;
-//    private boolean is_activated;
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+    private boolean is_deleted;
+    private boolean is_activated;
 
 
     @PrePersist
@@ -64,9 +59,6 @@ public class Product {
         dateOfCreated = LocalDateTime.now();
     }
 
-//    public void addImageToProduct(Image image) {
-//        image.setProduct(this);
-//        images.add(image);
-//    }
+
 
 }

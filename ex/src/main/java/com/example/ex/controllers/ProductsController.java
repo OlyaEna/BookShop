@@ -1,9 +1,11 @@
 package com.example.ex.controllers;
 
-import com.example.ex.dto.ProductDto;
+import com.example.ex.dto.*;
 import com.example.ex.model.entity.*;
 import com.example.ex.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,6 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/products")
-
 public class ProductsController {
     private final ProductService productService;
     private final GenreService genreService;
@@ -35,11 +36,11 @@ public class ProductsController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        List<Genre> genres = genreService.findAll();
-        List<Series> series = seriesService.findAll();
-        List<Author> authors = authorService.findAll();
-        List<Category> categories = categoryService.findAll();
-        List<Publisher> publishers = publisherService.findAll();
+        List<GenreDto> genres = genreService.findAll();
+        List<SeriesDto> series = seriesService.findAll();
+        List<AuthorDto> authors = authorService.findAll();
+        List<CategoryDto> categories = categoryService.findAll();
+        List<PublisherDto> publishers = publisherService.findAll();
         model.addAttribute("genres", genres);
         model.addAttribute("series", series);
         model.addAttribute("authors", authors);
@@ -51,7 +52,7 @@ public class ProductsController {
 
 
     @PostMapping("/save")
-    public String createGenre(@ModelAttribute("product") ProductDto productDto,
+    public String createProduct(@ModelAttribute("product") ProductDto productDto,
                               @RequestParam("imageProduct") MultipartFile imageProduct,
                               RedirectAttributes redirectAttributes) {
         try {
@@ -61,50 +62,17 @@ public class ProductsController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("failed", "Failed");
         }
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/0";
 
     }
 
-    //    @GetMapping("/edit/{id}")
-//    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-//        List<Genre> genres = genreService.findAll();
-//        List<Series> series = seriesService.findAll();
-//        List<Author> authors = authorService.findAll();
-//        List<Category> categories = categoryService.findAll();
-//        List<Publisher> publishers = publisherService.findAll();
-//        ProductDto productDto=productService.getById(id);
-//        model.addAttribute("genres", genres);
-//        model.addAttribute("series", series);
-//        model.addAttribute("authors", authors);
-//        model.addAttribute("categories", categories);
-//        model.addAttribute("publishers", publishers);
-//        model.addAttribute("productDto", productDto);
-//        return "admin/product/update-product";
-//    }
-//
-//    @PostMapping("/edit/{id}")
-//    public String processUpdate(@PathVariable("id") Long id,
-//                                @ModelAttribute("productDto") ProductDto productDto,
-//                                @RequestParam("imageProduct")MultipartFile imageProduct,
-//                                RedirectAttributes attributes){
-//        try {
-//            productService.update(imageProduct, productDto);
-//            attributes.addFlashAttribute("success", "Update successfully!");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            attributes.addFlashAttribute("error", "Failed to update!");
-//        }
-//        return "redirect:/admin/products";
-//
-//    }
     @GetMapping("/update/{id}")
     public String updateProductForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("title", "Update products");
-        List<Genre> genres = genreService.findAll();
-        List<Series> series = seriesService.findAll();
-        List<Author> authors = authorService.findAll();
-        List<Category> categories = categoryService.findAll();
-        List<Publisher> publishers = publisherService.findAll();
+        List<GenreDto> genres = genreService.findAll();
+        List<SeriesDto> series = seriesService.findAll();
+        List<AuthorDto> authors = authorService.findAll();
+        List<CategoryDto> categories = categoryService.findAll();
+        List<PublisherDto> publishers = publisherService.findAll();
         ProductDto productDto = productService.getById(id);
         model.addAttribute("productDto", productDto);
         model.addAttribute("genres", genres);
@@ -113,7 +81,7 @@ public class ProductsController {
         model.addAttribute("categories", categories);
         model.addAttribute("publishers", publishers);
         model.addAttribute("productDto", productDto);
-        return "redirect:/admin/products";
+        return "admin/product/update-product";
     }
 
 
@@ -130,10 +98,20 @@ public class ProductsController {
             e.printStackTrace();
             attributes.addFlashAttribute("error", "Failed to update!");
         }
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/0";
 
     }
 
+
+    @GetMapping("/{pageNo}")
+    public String productsPage(@PathVariable("pageNo") int pageNo, Model model){
+        Page<ProductDto> products = productService.pageProducts(pageNo);
+        model.addAttribute("size", products.getSize());
+        model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("products", products);
+        return "admin/product/products";
+    }
 
 //    @PostMapping("/save")
 //    public ModelAndView createGenre(@ModelAttribute("product") ProductDto productDto,
@@ -156,5 +134,41 @@ public class ProductsController {
 //
 //    }
 
+    @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String enabledProduct(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            productService.enableById(id);
+            attributes.addFlashAttribute("success", "Enabled successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to enabled!");
+        }
+        return "redirect:/admin/products/0";
+    }
+
+    @RequestMapping(value = "/delete-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String deletedProduct(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            productService.deleteById(id);
+            attributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to deleted");
+        }
+        return "redirect:/admin/products/0";
+    }
+
+    @GetMapping("/search-result/{pageNo}")
+    public String searchProducts(@PathVariable("pageNo")int pageNo,
+                                 @RequestParam("keyword") String keyword,
+                                 Model model){
+        Page<ProductDto> products = productService.searchProducts(pageNo, keyword);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("products", products);
+        model.addAttribute("size", products.getSize());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", products.getTotalPages());
+        return "/admin/product/search-products";
+    }
 
 }

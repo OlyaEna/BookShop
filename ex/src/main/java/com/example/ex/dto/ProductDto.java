@@ -23,8 +23,8 @@ public class ProductDto {
     private Publisher publisher;
     private String image;
     private Category category;
-    //    private boolean deleted;
-//    private boolean activated;
     private String ISBN;
+    private boolean deleted;
+    private boolean activated;
 
 }

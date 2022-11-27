@@ -37,6 +37,7 @@
             <thead class="thead-light">
             <tr>
                 <th scope="col"> Издатель</th>
+                <th scope="col">Активность</th>
                 <th scope="col">Действия</th>
             </tr>
             </thead>
@@ -44,11 +45,16 @@
             <tr th:each="publisher : ${publishers}">
                 <td th:text="${publisher.name}"></td>
                 <td>
+                    <a th:if="${publisher.activated == false}"
+                       th:href="@{/admin/publishers/enable-publisher/{id} (id = ${publisher.id})}"
+                       class="btn btn-warning">Enable</a>
+                    <a th:if="${publisher.deleted == false}"
+                       th:href="@{/admin/publishers/delete-publisher/{id} (id = ${publisher.id})}"
+                       class="btn btn-danger">Delete</a>
+                </td>
+                <td>
                     <a th:href="@{/admin/publishers/edit/{id}(id=${publisher.id})}" class="btn btn-primary">Update</a>
-                    <a th:href="@{/admin/publishers/delete/{id}(id=${publisher.id})}" class="btn btn-danger"> Delete</a>
-
-                    <!--                    <a  th:href="@{/admin/publishers/delete-publisher/{id}(id=${publisher.id})}" class="btn btn-warning">Deleted</a>-->
-<!--                    <a  th:href="@{/admin/publishers/enable-publisher/{id}(id=${publisher.id})}" class="btn btn-primary">Enabled</a>-->
+                    <a th:href="@{/admin/publishers/delete/{id}(id=${publisher.id})}" class="btn btn-danger"> Delete forever</a>
                 </td>
             </tr>
             </tbody>

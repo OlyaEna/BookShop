@@ -1,5 +1,6 @@
 package com.example.ex.controllers;
 
+import com.example.ex.dto.PublisherDto;
 import com.example.ex.model.entity.Genre;
 import com.example.ex.model.entity.Publisher;
 import com.example.ex.model.repository.PublisherRepository;
@@ -22,16 +23,16 @@ public class PublisherController {
 
     @GetMapping()
     public String publishers(Model model) {
-        List<Publisher> publishers = publisherService.findAll();
+        List<PublisherDto> publishers = publisherService.findAll();
         model.addAttribute("publishers", publishers);
         model.addAttribute("size", publishers.size());
         model.addAttribute("title", "Publisher");
-        model.addAttribute("newPublisher", new Publisher());
+        model.addAttribute("newPublisher", new PublisherDto());
         return "admin/publisher/publishers";
     }
 
     @PostMapping("/create")
-    public String createPublisher(@ModelAttribute("newPublisher") Publisher publisher, RedirectAttributes redirectAttributes) {
+    public String createPublisher(@ModelAttribute("newPublisher") PublisherDto publisher, RedirectAttributes redirectAttributes) {
         try {
             publisherService.savePublisher(publisher);
             redirectAttributes.addFlashAttribute("success", "Added successfully");
@@ -46,17 +47,15 @@ public class PublisherController {
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Publisher publisher = publisherRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid publisher Id:" + id));
-
+        PublisherDto publisher = publisherService.findById(id);
         model.addAttribute("publisher", publisher);
         return "admin/publisher/update-publisher";
     }
 
     @PostMapping("/update/{id}")
-    public String updatePublisher(@PathVariable("id") long id, Publisher publisher, RedirectAttributes attributes) {
+    public String updatePublisher(@PathVariable("id") long id, PublisherDto publisher, RedirectAttributes attributes) {
         try {
-            publisherService.savePublisher(publisher);
+            publisherService.update(publisher);
             attributes.addFlashAttribute("success", "Updated successfully");
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
@@ -69,13 +68,14 @@ public class PublisherController {
         }
         return "redirect:/admin/publishers";
     }
+
     @GetMapping("/delete/{id}")
     public String deletePublisher(@PathVariable(value = "id") Long id) {
         publisherService.deletePublisher(id);
         return "redirect:/admin/publishers";
     }
 
-//    @RequestMapping(value = "/delete-publisher/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    //    @RequestMapping(value = "/delete-publisher/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
 //    public String delete(Long id, RedirectAttributes attributes) {
 //        try {
 //            publisherService.deleteById(id);
@@ -98,4 +98,27 @@ public class PublisherController {
 //        }
 //        return "redirect:/admin/publishers";
 //    }
+    @RequestMapping(value = "/enable-publisher/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String enabledPublisher(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            publisherService.enableById(id);
+            attributes.addFlashAttribute("success", "Enabled successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to enabled!");
+        }
+        return "redirect:/admin/publishers";
+    }
+
+    @RequestMapping(value = "/delete-publisher/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String deletedPublisher(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            publisherService.deleteById(id);
+            attributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Failed to deleted");
+        }
+        return "redirect:/admin/publishers";
+    }
 }
