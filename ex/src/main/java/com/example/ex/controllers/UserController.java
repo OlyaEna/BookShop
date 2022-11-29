@@ -25,10 +25,6 @@ public class UserController {
     }
 
 
-    @GetMapping("/aa")
-    public String book() {
-        return "book-information";
-    }
     @GetMapping("/login")
     public String login() {
         return "login";

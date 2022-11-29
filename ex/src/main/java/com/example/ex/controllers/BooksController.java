@@ -40,11 +40,11 @@ public class BooksController {
         return "boooks";
     }
 
-    @GetMapping("/sea")
-    public String productInfo(@RequestParam(name = "id", required = false) Long id, Model model) {
+    @GetMapping("/{id}")
+    public String productInfo(@PathVariable(value = "id") Long id, Model model) {
         ProductDto product = productService.getById(id);
         model.addAttribute("product", product);
-        return "book-information";
+        return "item";
     }
 
 
