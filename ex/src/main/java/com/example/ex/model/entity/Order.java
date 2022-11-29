@@ -4,19 +4,41 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
-//@Entity
-//@Table(name = "orders")
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "orders")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Date orderDate;
+    @CreationTimestamp
+    private LocalDateTime created;
+    private Date deliveryDate;
+    private double totalPrice;
+    private String orderStatus;
+    private String notes;
+    private String country;
+    private String city;
+    private String address;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private List<OrderDetail> orderDetailList;
+}
+
+
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    private Long id;
@@ -33,4 +55,4 @@ public class Order {
 //    private List<OrderDetails> orderDetails;
 
 
-}
+

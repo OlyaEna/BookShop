@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -23,8 +24,20 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "email", unique = true)
     private String email;
-    private String name;
+    @Size(min = 3, max = 15, message = "First name should have 3-15 characters")
+    @Column(name = "first_name")
+    private String firstName;
+    @Size(min = 3, max = 15, message = "Last name should have 3-15 characters")
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "phone_number", unique = true)
+    private String phoneNumber;
 
+    @OneToOne(mappedBy = "user")
+    private ShoppingCart shoppingCart;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",

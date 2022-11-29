@@ -101,26 +101,26 @@ public class AuthorController {
         return "redirect:/admin/authors";
     }
 
-    @GetMapping("/{pageNo}")
-    public String page(@PathVariable("pageNo") int pageNo, Model model){
-        Page<AuthorDto> authors = authorService.page(pageNo);
-        model.addAttribute("size", authors.getSize());
-        model.addAttribute("totalPages", authors.getTotalPages());
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("authors", authors);
-        return "admin/author/authors";
-    }
-
-    @GetMapping("/search-result/{pageNo}")
-    public String search(@PathVariable("pageNo")int pageNo,
-                                 @RequestParam("keyword") String keyword,
-                                 Model model){
-        Page<AuthorDto> authors = authorService.search(pageNo, keyword);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("products", authors);
-        model.addAttribute("size", authors.getSize());
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", authors.getTotalPages());
-        return "/admin/author/search-authors";
-    }
+//    @GetMapping("/{pageNo}")
+//    public String page(@PathVariable("pageNo") int pageNo, Model model){
+//        Page<AuthorDto> authors = authorService.page(pageNo);
+//        model.addAttribute("size", authors.getSize());
+//        model.addAttribute("totalPages", authors.getTotalPages());
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("authors", authors);
+//        return "admin/author/authors";
+//    }
+//
+//    @GetMapping("/search-result/{pageNo}")
+//    public String search(@PathVariable("pageNo")int pageNo,
+//                                 @RequestParam("keyword") String keyword,
+//                                 Model model){
+//        Page<AuthorDto> authors = authorService.search(pageNo, keyword);
+//        model.addAttribute("keyword", keyword);
+//        model.addAttribute("products", authors);
+//        model.addAttribute("size", authors.getSize());
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("totalPages", authors.getTotalPages());
+//        return "/admin/author/search-authors";
+//    }
 }

@@ -53,8 +53,8 @@ public class ProductsController {
 
     @PostMapping("/save")
     public String createProduct(@ModelAttribute("product") ProductDto productDto,
-                              @RequestParam("imageProduct") MultipartFile imageProduct,
-                              RedirectAttributes redirectAttributes) {
+                                @RequestParam("imageProduct") MultipartFile imageProduct,
+                                RedirectAttributes redirectAttributes) {
         try {
             productService.save(imageProduct, productDto);
             redirectAttributes.addFlashAttribute("success", "Added successfully");
@@ -99,12 +99,10 @@ public class ProductsController {
             attributes.addFlashAttribute("error", "Failed to update!");
         }
         return "redirect:/admin/products/0";
-
     }
 
-
     @GetMapping("/{pageNo}")
-    public String productsPage(@PathVariable("pageNo") int pageNo, Model model){
+    public String productsPage(@PathVariable("pageNo") int pageNo, Model model) {
         Page<ProductDto> products = productService.pageProducts(pageNo);
         model.addAttribute("size", products.getSize());
         model.addAttribute("totalPages", products.getTotalPages());
@@ -113,26 +111,6 @@ public class ProductsController {
         return "admin/product/products";
     }
 
-//    @PostMapping("/save")
-//    public ModelAndView createGenre(@ModelAttribute("product") ProductDto productDto,
-//                                    @RequestParam("imageProduct") MultipartFile imageProduct,
-//                                    @ModelAttribute("auth") ArrayList<Long> authorId,
-//                                    RedirectAttributes redirectAttributes) {
-//        try {
-//            final List<Author> newAuthors =
-//                    authorId.stream()
-//                            .map(id -> authorRepository.getReferenceById(id))
-//                            .collect(Collectors.toList());
-//            productDto.setAuthors(newAuthors);
-//            productService.save(imageProduct, productDto);
-//            redirectAttributes.addFlashAttribute("success", "Added successfully");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            redirectAttributes.addFlashAttribute("failed", "Failed");
-//        }
-//        return new ModelAndView("redirect:/admin/products");
-//
-//    }
 
     @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
     public String enabledProduct(@PathVariable("id") Long id, RedirectAttributes attributes) {
@@ -159,9 +137,9 @@ public class ProductsController {
     }
 
     @GetMapping("/search-result/{pageNo}")
-    public String searchProducts(@PathVariable("pageNo")int pageNo,
+    public String searchProducts(@PathVariable("pageNo") int pageNo,
                                  @RequestParam("keyword") String keyword,
-                                 Model model){
+                                 Model model) {
         Page<ProductDto> products = productService.searchProducts(pageNo, keyword);
         model.addAttribute("keyword", keyword);
         model.addAttribute("products", products);

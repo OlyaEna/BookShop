@@ -1,6 +1,7 @@
 package com.example.ex.service.impl;
 
 import com.example.ex.dto.ProductDto;
+import com.example.ex.model.entity.Genre;
 import com.example.ex.model.entity.Product;
 import com.example.ex.model.repository.ProductRepository;
 import com.example.ex.utils.ImageUpload;
@@ -81,8 +82,17 @@ public class ProductServiceImpl implements ProductService {
         Page<ProductDto> products = toPage(productDtoList, pageable);
         return products;
     }
-    private Page toPage(List<ProductDto> list , Pageable pageable){
-        if(pageable.getOffset() >= list.size()){
+
+    @Override
+    public List<ProductDto> listProducts(String title) {
+        List<Product> products = productRepository.findByTitle(title);
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
+
+
+    private Page toPage(List<ProductDto> list, Pageable pageable) {
+        if (pageable.getOffset() >= list.size()) {
             return Page.empty();
         }
         int startIndex = (int) pageable.getOffset();
@@ -92,7 +102,6 @@ public class ProductServiceImpl implements ProductService {
         List subList = list.subList(startIndex, endIndex);
         return new PageImpl(subList, pageable, list.size());
     }
-
 
 
 //    public List<UserDto> findAllUsers() {

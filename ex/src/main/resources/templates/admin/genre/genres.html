@@ -18,6 +18,12 @@
             Добавить новый жанр!
         </button>
 
+<!--        <div>-->
+<!--            <form th:action="@{/admin/genres/search}" method="get">-->
+<!--                <input type="text" id="search" name="title" placeholder="Search genres">-->
+<!--                <button type="submit" class="btn btn-primary">Search</button>-->
+<!--            </form>-->
+<!--        </div>-->
         <!--<Вывод ошибок и обновлений >-->
         <div th:if="${success}" class="text-center alert alert-success">
             <p th:text="${success}"></p>

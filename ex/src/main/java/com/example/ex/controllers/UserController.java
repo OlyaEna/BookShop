@@ -19,7 +19,16 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
 
+
+    @GetMapping("/aa")
+    public String book() {
+        return "book-information";
+    }
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -47,49 +56,12 @@ public class UserController {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
-
         if (result.hasErrors()) {
             model.addAttribute("user", userDto);
             return "/registrationForm";
         }
-
         userService.saveUser(userDto);
         return "redirect:/login";
     }
 
-
-
-//    @GetMapping("/")
-//    public String mainPage(){
-//        return "main-page";
-//    }
-//
-//    @GetMapping("/news")
-//    public String news(){
-//        return "news";
-//    }
-//
-//    @GetMapping("/registration")
-//    public String registration(Model model){
-//        model.addAttribute("userForm", new User());
-//        return "registrationForm";
-//    }
-//
-//    @PostMapping("/registration")
-//    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
-//
-//        if (bindingResult.hasErrors()) {
-//            return "registrationForm";
-//        }
-//        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-//            model.addAttribute("passwordError", "Пароли не совпадают");
-//            return "registrationForm";
-//        }
-//        if (! userDetailService.createUser(userForm)){
-//            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-//            return "registrationForm";
-//        }
-//
-//        return "redirect:/";
-//    }
 }

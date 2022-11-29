@@ -13,16 +13,12 @@
 
 <nav class="py-2 bg-light border-bottom">
     <div class="container d-flex flex-wrap">
-        <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-4">BookStore</span>
         </a>
         <ul class="nav me-auto">
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Книги</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Заказ</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Оплата</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Доставка</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Про Нас</a></li>
+            <li class="nav-item"><a href="/books" class="nav-link link-dark px-2">Книги</a></li>
             <div sec:authorize="hasRole('ROLE_ADMIN')">
                 <li class="nav-item"><a th:href="@{/admin}" class="nav-link link-dark px-2">Панель Администратора</a></li>
             </div>

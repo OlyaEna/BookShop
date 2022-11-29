@@ -60,7 +60,7 @@
                     <select id="authors" th:field="*{author}" name="authors" class="form-control">
                         <option th:value="null">-ВЫБРАТЬ-</option>
                         <option th:each="author : ${authors}"
-                                th:if="${author._activated}"
+                                th:if="${author.activated}"
                                 th:value="${author.id}"
                                 th:text="${author.fio}">
                         </option>
@@ -74,7 +74,7 @@
                     <select id="categories" th:field="*{category}" name="categories" class="form-control">
                         <option th:value="null">-ВЫБРАТЬ-</option>
                         <option th:each="category : ${categories}"
-                                th:if="${category._activated}"
+                                th:if="${category.activated}"
                                 th:value="${category.id}"
                                 th:text="${category.name}">
                         </option>
@@ -94,7 +94,7 @@
                     <select id="genres" th:field="*{genre}" name="genres" class="form-control">
                         <option th:value="null">-ВЫБРАТЬ-</option>
                         <option th:each="genre : ${genres}"
-                                th:if="${genre._activated}"
+                                th:if="${genre.activated}"
                                 th:value="${genre.id}"
                                 th:text="${genre.name}">
                         </option>
@@ -108,7 +108,7 @@
                     <select id="series" th:field="*{series}" name="series" class="form-control">
                         <option th:value="null">-ВЫБРАТЬ-</option>
                         <option th:each="ser : ${series}"
-                                th:if="${ser._activated}"
+                                th:if="${ser.activated}"
                                 th:value="${ser.id}"
                                 th:text="${ser.name}">
                         </option>
@@ -121,7 +121,7 @@
                     <select id="publishers" th:field="*{publisher}" name="categories" class="form-control">
                         <option th:value="null">-ВЫБРАТЬ-</option>
                         <option th:each="publisher : ${publishers}"
-                                th:if="${publisher._activated}"
+                                th:if="${publisher.activated}"
                                 th:value="${publisher.id}"
                                 th:text="${publisher.name}">
                         </option>

@@ -1,11 +1,12 @@
-<header th:insert="fragments/header :: header" ></header>
+<header th:insert="fragments/header :: header"></header>
+<title>Регистрация</title>
 <body>
-<br /><br /><br />
+<br/><br/><br/>
 <div class="container">
     <div class="row col-md-8 offset-md-2">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-center">Registration</h2>
+                <h2 class="text-center">Регистрация</h2>
             </div>
             <div th:if="${param.success}">
                 <div class="alert alert-info">
@@ -20,30 +21,30 @@
                         th:object="${user}"
                 >
                     <div class="form-group mb-3">
-                        <label class="form-label">First Name</label>
+                        <label class="form-label">Имя</label>
                         <input
                                 class="form-control"
                                 id="firstName"
                                 name="firstName"
-                                placeholder="Enter first name"
+                                placeholder="Введите имя"
                                 th:field="*{firstName}"
                                 type="text"
                         />
-                        <p th:errors = "*{firstName}" class="text-danger"
+                        <p th:errors="*{firstName}" class="text-danger"
                            th:if="${#fields.hasErrors('firstName')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Last Name</label>
+                        <label class="form-label">Фамилия</label>
                         <input
                                 class="form-control"
                                 id="lastName"
                                 name="lastName"
-                                placeholder="Enter last name"
+                                placeholder="Введите фамилию"
                                 th:field="*{lastName}"
                                 type="text"
                         />
-                        <p th:errors = "*{lastName}" class="text-danger"
+                        <p th:errors="*{lastName}" class="text-danger"
                            th:if="${#fields.hasErrors('lastName')}"></p>
                     </div>
 
@@ -53,30 +54,45 @@
                                 class="form-control"
                                 id="email"
                                 name="email"
-                                placeholder="Enter email address"
+                                placeholder="Введите email"
                                 th:field="*{email}"
                                 type="email"
                         />
-                        <p th:errors = "*{email}" class="text-danger"
+                        <p th:errors="*{email}" class="text-danger"
                            th:if="${#fields.hasErrors('email')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Password</label>
+                        <label class="form-label">Номер телефона</label>
+                        <input
+                                class="form-control"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                placeholder="Введите номер телефона"
+                                th:field="*{phoneNumber}"
+                                type="text"
+                        />
+                        <p th:errors="*{phoneNumber}" class="text-danger"
+                           th:if="${#fields.hasErrors('phoneNumber')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Пароль</label>
                         <input
                                 class="form-control"
                                 id="password"
                                 name="password"
-                                placeholder="Enter password"
+                                placeholder="Введите пароль"
                                 th:field="*{password}"
                                 type="password"
                         />
-                        <p th:errors = "*{password}" class="text-danger"
+                        <p th:errors="*{password}" class="text-danger"
                            th:if="${#fields.hasErrors('password')}"></p>
                     </div>
+
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Register</button>
-                        <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                        <button class="btn btn-primary" type="submit">Регистрация</button>
+                        <span>Уже зарегистрированы? <a th:href="@{/login}">Войти</a></span>
                     </div>
                 </form>
             </div>

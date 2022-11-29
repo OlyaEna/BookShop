@@ -15,7 +15,6 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "publisher_id")
-
     private Long id;
     private String name;
     private boolean is_deleted;

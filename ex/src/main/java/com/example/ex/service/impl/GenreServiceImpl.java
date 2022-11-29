@@ -10,6 +10,9 @@ import com.example.ex.model.entity.Series;
 import com.example.ex.model.repository.GenreRepository;
 import com.example.ex.service.GenreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -101,5 +104,19 @@ public class GenreServiceImpl implements GenreService {
             return null;
         }
     }
+
+    @Override
+    public List<GenreDto> search(String keyword) {
+        List<GenreDto> genreDtoList = mapper(genreRepository.searchList(keyword));
+        return genreDtoList;
+    }
+
+    @Override
+    public List<Genre> listProducts(String title) {
+        if (title != null) return genreRepository.findByName(title);
+        return genreRepository.findAll();
+    }
 }
+
+
 

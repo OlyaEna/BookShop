@@ -1,6 +1,7 @@
 package com.example.ex.service;
 import com.example.ex.dto.ProductDto;
 import com.example.ex.model.entity.Author;
+import com.example.ex.model.entity.Genre;
 import com.example.ex.model.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,5 +22,7 @@ public interface ProductService {
     void enableById(Long id);
     Page<ProductDto> pageProducts(int pageNo);
     Page<ProductDto> searchProducts(int pageNo, String keyword);
+    List<ProductDto> listProducts(String title);
+
 
 }

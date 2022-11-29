@@ -1,11 +1,13 @@
 package com.example.ex.controllers;
 
 import com.example.ex.dto.GenreDto;
+import com.example.ex.dto.ProductDto;
 import com.example.ex.model.entity.Genre;
 import com.example.ex.model.repository.GenreRepository;
 import com.example.ex.service.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -118,5 +120,19 @@ public class GenreController {
         }
         return "redirect:/admin/genres";
     }
+
+//    @GetMapping("/search-result")
+//    public String searchProducts( @RequestParam("keyword") String keyword, Model model){
+//        List<GenreDto> genres = genreService.search(keyword);
+//      model.addAttribute("keyword", keyword);
+//        model.addAttribute("genres", genres);
+//        return "admin/genre/search-genres";
+//    }
+//
+//    @GetMapping("/search")
+//    public String products(@RequestParam(name = "title", required = false) String title, Model model) {
+//        model.addAttribute("genres", genreService.listProducts(title));
+//        return "admin/genre/genres";
+//    }
 
 }
