@@ -103,32 +103,7 @@ public class AuthorServiceImpl implements AuthorService {
         }
     }
 
-    @Override
-    public Page<AuthorDto> page(int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo, 5);
-        List<AuthorDto> authors = mapper(authorRepository.findAll());
-        Page<AuthorDto> authorPages = toPage(authors, pageable);
-        return authorPages;
-    }
 
-    @Override
-    public Page<AuthorDto> search(int pageNo, String keyword) {
-        Pageable pageable = PageRequest.of(pageNo, 5);
-        List<AuthorDto> authors = mapper(authorRepository.searchList(keyword));
-        Page<AuthorDto> authorPages = toPage(authors, pageable);
-        return authorPages;
-    }
-    private Page toPage(List<AuthorDto> list , Pageable pageable){
-        if(pageable.getOffset() >= list.size()){
-            return Page.empty();
-        }
-        int startIndex = (int) pageable.getOffset();
-        int endIndex = ((pageable.getOffset() + pageable.getPageSize()) > list.size())
-                ? list.size()
-                : (int) (pageable.getOffset() + pageable.getPageSize());
-        List subList = list.subList(startIndex, endIndex);
-        return new PageImpl(subList, pageable, list.size());
-    }
 
 
 }

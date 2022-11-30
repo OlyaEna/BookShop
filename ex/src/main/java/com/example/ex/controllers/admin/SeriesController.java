@@ -1,4 +1,4 @@
-package com.example.ex.controllers;
+package com.example.ex.controllers.admin;
 
 import com.example.ex.dto.SeriesDto;
 import com.example.ex.model.entity.Publisher;

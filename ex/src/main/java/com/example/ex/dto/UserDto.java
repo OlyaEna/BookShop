@@ -28,4 +28,7 @@ public class UserDto {
     @Size(min = 4, max = 20, message = "Password should have 5-20 characters")
     private String password;
 
+    private boolean active;
+
+
 }

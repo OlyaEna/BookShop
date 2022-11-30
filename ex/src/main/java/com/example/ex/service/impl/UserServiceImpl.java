@@ -1,6 +1,8 @@
 package com.example.ex.service.impl;
 
+import com.example.ex.dto.ProductDto;
 import com.example.ex.dto.UserDto;
+import com.example.ex.model.entity.Product;
 import com.example.ex.model.entity.Role;
 import com.example.ex.model.entity.User;
 import com.example.ex.model.repository.RoleRepository;
@@ -25,10 +27,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
+        user.setId(user.getId());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setActive(userDto.isActive());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         Role role = roleRepository.findByName("ROLE_USER");
         if (role == null) {
@@ -60,10 +64,49 @@ public class UserServiceImpl implements UserService {
 
     private UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
         userDto.setPhoneNumber(user.getPhoneNumber());
+        userDto.setActive(userDto.isActive());
+        return userDto;
+    }
+//    @Override
+//    public void banById(Long id){
+//        User user = userRepository.getReferenceById(id);
+//        if (user != null) {
+//            if (user.isActive()) {
+//                user.setActive(false);
+//            } else {
+//                user.setActive(true);
+//            }
+//        }
+//        userRepository.save(user);
+//    }
+
+    public void banUser(Long id) {
+        User user = userRepository.getReferenceById(id);
+        if (user != null) {
+            if (user.isActive()) {
+                user.setActive(false);
+            } else {
+                user.setActive(true);
+            }
+        }
+        userRepository.save(user);
+    }
+
+    @Override
+    public UserDto getById(Long id) {
+        User user = userRepository.getReferenceById(id);
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setPhoneNumber(user.getPhoneNumber());
+        userDto.setActive(user.isActive());
         return userDto;
     }
 

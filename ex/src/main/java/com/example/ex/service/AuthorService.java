@@ -22,7 +22,5 @@ public interface AuthorService {
 
     Author update(AuthorDto authorDto);
 
-    Page<AuthorDto> page(int pageNo);
-    Page<AuthorDto> search(int pageNo, String keyword);
 
 }

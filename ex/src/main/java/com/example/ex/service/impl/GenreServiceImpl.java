@@ -105,16 +105,16 @@ public class GenreServiceImpl implements GenreService {
         }
     }
 
-    @Override
-    public List<GenreDto> search(String keyword) {
-        List<GenreDto> genreDtoList = mapper(genreRepository.searchList(keyword));
-        return genreDtoList;
-    }
 
     @Override
     public List<Genre> listProducts(String title) {
         if (title != null) return genreRepository.findByName(title);
         return genreRepository.findAll();
+    }
+
+    @Override
+    public Genre findGenreById(Long id) {
+        return genreRepository.getReferenceById(id);
     }
 }
 

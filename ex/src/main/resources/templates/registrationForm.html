@@ -1,10 +1,13 @@
-<header th:insert="fragments/header :: header"></header>
-<title>Регистрация</title>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:insert="fragments/head :: head"></header>
 <body>
+<!-- Header-->
+<header th:insert="fragments/userHeader :: userHeader"></header><title>Регистрация</title>
 <br/><br/><br/>
 <div class="container">
     <div class="row col-md-8 offset-md-2">
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-header">
                 <h2 class="text-center">Регистрация</h2>
             </div>

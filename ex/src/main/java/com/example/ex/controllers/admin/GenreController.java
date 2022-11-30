@@ -1,4 +1,4 @@
-package com.example.ex.controllers;
+package com.example.ex.controllers.admin;
 
 import com.example.ex.dto.GenreDto;
 import com.example.ex.dto.ProductDto;

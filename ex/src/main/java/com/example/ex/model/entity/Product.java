@@ -52,6 +52,9 @@ public class Product {
     private String image;
     private boolean is_deleted;
     private boolean is_activated;
+    private boolean novelty;
+    private boolean bestseller;
+
 
 
     @PrePersist

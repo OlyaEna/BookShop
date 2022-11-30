@@ -1,5 +1,6 @@
 package com.example.ex.model.repository;
 
+import com.example.ex.model.entity.Genre;
 import com.example.ex.model.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where p.description like %?1% or p.title like %?1%")
     List<Product> searchProductsList(String keyword);
+
+    List<Product> findProductsByGenre_Id (Long id);
+
+    List<Product> findProductsByAuthor_Id(Long id);
+
+    List<Product> findProductsBySeries_Id(Long id);
+
+    List<Product> findProductsByCategory_Id(Long id);
 
 
 }

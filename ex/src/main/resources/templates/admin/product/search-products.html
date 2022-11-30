@@ -19,9 +19,9 @@
             </a>
         </td>
         <td>
-        <a type="button" class="btn btn-primary" th:href="@{/admin/products/0}">
-            Вернуться ко всем книгам
-        </a>
+            <a type="button" class="btn btn-primary" th:href="@{/admin/products/0}">
+                Вернуться ко всем книгам
+            </a>
         </td>
         <div th:if="${success}" class="text-center alert alert-success">
             <p th:text="${success}"></p>
@@ -48,6 +48,8 @@
                 <th scope="col">Изображение</th>
                 <th scope="col">Обновить</th>
                 <th scope="col">Удалить</th>
+                <th scope="col">Бестселлер</th>
+                <th scope="col">Новинка</th>
             </tr>
             </thead>
             <tbody>
@@ -72,6 +74,28 @@
                        th:href="@{/admin/products/enable-product/{id} (id = ${product.id})}" class="btn btn-warning">Enable</a>
                     <a th:if="${product.deleted == false}"
                        th:href="@{/admin/products/delete-product/{id} (id = ${product.id})}" class="btn btn-danger">Delete</a>
+                </td>
+
+                <td th:if="${product.bestseller == true}" class="bi bi-check-circle">
+                    <form th:action="@{/admin/products/bestseller/{id}(id = ${product.id})}" method="post">
+                        <button type="submit" class="btn btn-primary">Бестселлер</button>
+                    </form>
+                </td>
+                <td th:if="${product.bestseller == false}">
+                    <form th:action="@{/admin/products/bestseller/{id}(id = ${product.id})}" method="post">
+                        <button type="submit" class="btn btn-primary">Бестселлер</button>
+                    </form>
+                </td>
+
+                <td th:if="${product.novelty == true}" class="bi bi-check-circle">
+                    <form th:action="@{/admin/products/novelty/{id}(id = ${product.id})}" method="post">
+                        <button type="submit" class="btn btn-primary">Новинка</button>
+                    </form>
+                </td>
+                <td th:if="${product.novelty == false}">
+                    <form th:action="@{/admin/products/novelty/{id}(id = ${product.id})}" method="post">
+                        <button type="submit" class="btn btn-primary">Новинка</button>
+                    </form>
                 </td>
             </tr>
             </tbody>

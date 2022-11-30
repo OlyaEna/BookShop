@@ -26,5 +26,7 @@ public class ProductDto {
     private String ISBN;
     private boolean deleted;
     private boolean activated;
+    private boolean novelty;
+    private boolean bestseller;
 
 }

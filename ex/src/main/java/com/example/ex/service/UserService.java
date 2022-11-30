@@ -12,4 +12,8 @@ public interface UserService {
 
     List<UserDto> findAllUsers();
 
+    void banUser(Long id);
+
+    public UserDto getById(Long id);
+
 }

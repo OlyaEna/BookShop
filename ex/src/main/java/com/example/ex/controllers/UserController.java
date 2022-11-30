@@ -19,20 +19,9 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
-
-
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @GetMapping("/main")
-    public String main() {
-        return "main-page";
     }
 
     @GetMapping("/registration")

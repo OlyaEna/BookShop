@@ -1,4 +1,4 @@
-package com.example.ex.controllers;
+package com.example.ex.controllers.admin;
 
 import com.example.ex.dto.*;
 import com.example.ex.model.entity.*;
@@ -148,5 +148,18 @@ public class ProductsController {
         model.addAttribute("totalPages", products.getTotalPages());
         return "/admin/product/search-products";
     }
+
+    @PostMapping("/bestseller/{id}")
+    public String bestseller(@PathVariable("id") Long id) {
+        productService.bestsellerById(id);
+        return "redirect:/admin/products/0";
+    }
+
+    @PostMapping("/novelty/{id}")
+    public String novelty(@PathVariable("id") Long id) {
+        productService.noveltyById(id);
+        return "redirect:/admin/products/0";
+    }
+
 
 }

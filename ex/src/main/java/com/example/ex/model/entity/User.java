@@ -38,6 +38,8 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    private boolean active;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",

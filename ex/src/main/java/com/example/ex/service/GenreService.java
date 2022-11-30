@@ -26,9 +26,10 @@ public interface GenreService {
 
     Genre update(GenreDto genreDto);
 
-    List<GenreDto> search(String keyword);
 
+    List<Genre> listProducts(String title);
 
-  List<Genre> listProducts(String title);
+    Genre findGenreById(Long id);
+
 
 }
