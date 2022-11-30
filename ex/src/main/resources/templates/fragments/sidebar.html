@@ -1,0 +1,19 @@
+<div th:fragment="sidebar">
+    <div id="sidebar-nav"
+         class="list-group border-0 rounded-0 text-sm-start min-vh-100">
+        <a href="/books" class="list-group-item border-end-0 d-inline-block text-truncate"
+           data-bs-parent="#sidebar"> <span>Все книги</span></a>
+        <a th:href="@{/books/author/1}" class="list-group-item border-end-0 d-inline-block text-truncate"
+           data-bs-parent="#sidebar"> <span>Авторы</span></a>
+        <a th:href="@{/books/category/1}" class="list-group-item border-end-0 d-inline-block text-truncate"
+           data-bs-parent="#sidebar"> <span>Категории</span></a>
+        <a th:href="@{/books/genre/1}" class="list-group-item border-end-0 d-inline-block text-truncate"
+           data-bs-parent="#sidebar"><span>Жанры</span></a>
+        <a th:href="@{/books/series/1}" class="list-group-item border-end-0 d-inline-block text-truncate"
+           data-bs-parent="#sidebar"> <span>Серии</span></a>
+        <a href="#" class="list-group-item border-end-0 d-inline-block text-truncate"
+           data-bs-parent="#sidebar"><span>Подборки</span></a>
+    </div>
+
+
+</div>

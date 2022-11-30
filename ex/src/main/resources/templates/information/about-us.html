@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:insert="fragments/head :: head"></header>
+<body>
+<header th:insert="fragments/userHeader :: userHeader"></header>
+<main class="flex-shrink-0">
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6 order-first order-lg-last"> <img
+                        src="\img\image-product1\shop.jpg" alt="..."/></div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bolder">Контакты</h2>
+                    <p class="lead fw-normal text-muted mb-0"> 1. Минск, Проспект Пушкина, 93. Магазин
+                        "BookStore". Время работы: ежедневно с 10.00 до 21.00. Тел.: +375 29 614-58-92.
+                    </p>
+                    <p class="lead fw-normal text-muted mb-0">  2. Глуск, ул. Гагарина, 29. Магазин "BookStore". Время работы: ежедневно с 10.00 до 21.00. Тел.:
+                        +375 29 614-58-92.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 bg-light" id="scroll-target">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6"><img
+                        src="\img\image-product1\shopout.jpg"  alt="..."/> </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bolder">Кратко о нас</h2>
+                    <p class="lead fw-normal text-muted mb-0">Компания была основана двадцать седьмого июля
+                        двухтысячного года. Вы можете нам доверять: мы давно зарекомендовали себя в качестве достойного поставщика по
+                        всей Беларуси. Наша компания существует на рынке уже 22 года, и мы очень горжимся продуктами,
+                        которые производим.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team members section-->
+    <section class="py-5 bg-light">
+        <div class="container px-5 my-5">
+            <div class="text-center">
+                <h2 class="fw-bolder">Наша Команда</h2>
+            </div>
+            <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="text-center">
+                        <img src="\img\image-product1\am.jpg"  alt="..."/>
+                        <h5 class="fw-bolder">Ена Ольга</h5>
+                        <div class="fst-italic text-muted">Founder &amp; CEO</div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-sm-0">
+                    <div class="text-center">
+                        <img src="\img\image-product1\sec.jpg"  alt="..."/>
+                        <h5 class="fw-bolder">Ена Ольга</h5>
+                        <div class="fst-italic text-muted">Operations Manager</div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="text-center">
+                        <img src="\img\image-product1\thr.jpg"  alt="..."/>
+                        <h5 class="fw-bolder">Ена Ольга</h5>
+                        <div class="fst-italic text-muted">Software Engineer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Footer-->
+<footer class="bg-dark py-4 mt-auto">
+    <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+            <div class="col-auto">
+                <div class="small m-0 text-white">Copyright &copy; Your Website 2022</div>
+            </div>
+            <div class="col-auto">
+                <a class="link-light small" href="#!">Privacy</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Terms</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
