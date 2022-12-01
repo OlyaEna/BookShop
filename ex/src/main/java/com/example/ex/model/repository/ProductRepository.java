@@ -33,5 +33,21 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findProductsByCategory_Id(Long id);
 
+    @Query(value = "select * from products p where p.bestseller = true and p.is_activated = true order by rand() asc limit 5 ", nativeQuery = true)
+    List<Product> listViewProducts();
+
+    @Query(value = "select * from products p where p.novelty = true and p.is_activated = true order by rand() asc limit 5 ", nativeQuery = true)
+    List<Product> listNewProducts();
+
+    @Query( "select p from Product p where p.bestseller = true and p.is_activated = true")
+    List<Product> bestseller();
+
+    @Query( "select p from Product p where p.novelty = true and p.is_activated = true")
+    List<Product> novelty();
+    @Query(value = "select * from products p where p.is_activated = true order by rand() asc limit 5 ", nativeQuery = true)
+    List<Product> exampleProducts();
+
+
+
 
 }

@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@ModelAttribute("user") User user) {
         return "login";
     }
 

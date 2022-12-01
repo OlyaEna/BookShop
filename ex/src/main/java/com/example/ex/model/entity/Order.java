@@ -9,7 +9,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,9 +35,9 @@ public class Order {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<OrderDetail> orderDetailList;
 }
 
 

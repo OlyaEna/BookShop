@@ -33,9 +33,6 @@ public class User implements UserDetails {
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "user")
-    private ShoppingCart shoppingCart;
-
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 

@@ -72,18 +72,6 @@ public class UserServiceImpl implements UserService {
         userDto.setActive(userDto.isActive());
         return userDto;
     }
-//    @Override
-//    public void banById(Long id){
-//        User user = userRepository.getReferenceById(id);
-//        if (user != null) {
-//            if (user.isActive()) {
-//                user.setActive(false);
-//            } else {
-//                user.setActive(true);
-//            }
-//        }
-//        userRepository.save(user);
-//    }
 
     public void banUser(Long id) {
         User user = userRepository.getReferenceById(id);

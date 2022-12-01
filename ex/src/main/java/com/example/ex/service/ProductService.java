@@ -42,6 +42,14 @@ public interface ProductService {
     void noveltyById(Long id);
 
     void bestsellerById(Long id);
+    List<ProductDto> listViewProducts();
+    List<ProductDto> listNewProducts();
+
+    List<ProductDto> bestseller();
+
+    List<ProductDto> novelty();
+
+    List<ProductDto> exampleProducts();
 
 
 }

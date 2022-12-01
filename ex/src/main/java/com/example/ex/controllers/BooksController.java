@@ -30,11 +30,14 @@ public class BooksController {
     public String books(Model model) {
         List<ProductDto> productDto = productService.findAll();
         model.addAttribute("productDto", productDto);
+
         return "books";
     }
 
     @GetMapping("/{id}")
     public String productInfo(@PathVariable(value = "id") Long id, Model model) {
+        List<ProductDto> exampleProducts = productService.exampleProducts();
+        model.addAttribute("exampleProducts", exampleProducts);
         ProductDto product = productService.getById(id);
         model.addAttribute("product", product);
         return "item";
@@ -82,6 +85,20 @@ public class BooksController {
         model.addAttribute("ser", ser);
         model.addAttribute("series", series);
         return "products-in-series";
+    }
+
+    @GetMapping("/bestseller")
+    public String bestseller(Model model) {
+        List<ProductDto> bestseller = productService.bestseller();
+        model.addAttribute("bestseller", bestseller);
+        return "bestseller";
+    }
+
+    @GetMapping("/new")
+    public String novelty(Model model) {
+        List<ProductDto> novelty = productService.novelty();
+        model.addAttribute("novelty", novelty);
+        return "novelty";
     }
 
 }

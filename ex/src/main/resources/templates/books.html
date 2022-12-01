@@ -14,6 +14,7 @@
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/newstyles.css" rel="stylesheet"/>
     <link href="/css/sidebar.css" rel="stylesheet"/>
+    <title>Все Книги</title>
 
 </head>
 <body>
@@ -50,8 +51,11 @@
                                 </div>
                                 <div sec:authorize="hasRole('ROLE_USER')">
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Добавить
-                                            в корзину</a></div>
+                                        <div class="text-center">
+                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                                        th:href="@{'/cart/add/' + ${product.id}}">Добавить
+                                                в корзину</a></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div sec:authorize="isAnonymous()">

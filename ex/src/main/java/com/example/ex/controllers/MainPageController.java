@@ -19,16 +19,12 @@ public class MainPageController {
     @GetMapping("/")
     public String index(Model model) {
         List<ProductDto> productDto = productService.findAll();
+        List<ProductDto> listViewProducts = productService.listViewProducts();
+        List<ProductDto> listNewProducts = productService.listNewProducts();
+        model.addAttribute("listNewProducts", listNewProducts);
+        model.addAttribute("viewProducts", listViewProducts);
         model.addAttribute("productDto", productDto);
         return "index";
     }
 
-
-//    @GetMapping("/trying")
-//    public String trying(Model model) {
-//        List<Product> product = new ArrayList<>();
-//        List<Product> productNew= productService.getRandomElement(product, 4);
-//        model.addAttribute("productNew", productNew);
-//        return "try";
-//    }
 }

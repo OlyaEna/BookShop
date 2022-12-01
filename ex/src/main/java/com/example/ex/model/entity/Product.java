@@ -24,12 +24,6 @@ public class Product {
     @Column(columnDefinition = "text")
     private String description;
     private double price;
-    //    @ManyToMany(mappedBy = "products")
-//    private  List <Author> authors;
-//    @ManyToMany(mappedBy = "products")
-//    private List <Genre> genres;
-//    @ManyToMany(mappedBy = "products")
-//    private List <Bucket> buckets;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "publisher_id", referencedColumnName = "publisher_id")
     private Publisher publisher;

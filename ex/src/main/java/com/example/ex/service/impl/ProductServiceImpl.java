@@ -266,4 +266,39 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public List<ProductDto> listViewProducts() {
+        List<Product> products = productRepository.listViewProducts();
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
+
+    @Override
+    public List<ProductDto> listNewProducts() {
+        List<Product> products = productRepository.listNewProducts();
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
+
+    @Override
+    public List<ProductDto> bestseller() {
+        List<Product> products =productRepository.bestseller();
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
+
+    @Override
+    public List<ProductDto> novelty() {
+        List<Product> products = productRepository.novelty();
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
+
+    @Override
+    public List<ProductDto> exampleProducts() {
+        List<Product> products = productRepository.exampleProducts();
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
 }
+
