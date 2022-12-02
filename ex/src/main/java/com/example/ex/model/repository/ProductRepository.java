@@ -47,7 +47,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select * from products p where p.is_activated = true order by rand() asc limit 5 ", nativeQuery = true)
     List<Product> exampleProducts();
 
-
-
+    Product findProductsByIdAndAndTitle(Long id, String title);
 
 }

@@ -29,7 +29,7 @@
         <tr th:each="orderItem : ${orderItems}">
             <td th:text="${orderItem.product.id}"></td>
 <!--            <td th:text="${orderItem.product.title}"></td>-->
-<!--            <td th:text="${orderItem.product.price}"></td>-->
+<!--            <td th:text="${orderItem.product.getPrice()}"></td>-->
         </tr>
         </tbody>
     </table>

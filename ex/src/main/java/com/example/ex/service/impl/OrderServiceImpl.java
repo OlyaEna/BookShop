@@ -56,11 +56,6 @@ public class OrderServiceImpl implements OrderService {
 
     public List<Order> getCustomOrders(Principal principal) {
         User user = userService.findUserByEmail(principal.getName());
-
-//        Role role = roleRepository.findByName("ROLE_ADMIN");
-//        if (role.equals("ROLE_ADMIN")) {
-//            return getAllOrders();
-//        }
         return getOrderByUser(user);
     }
 }

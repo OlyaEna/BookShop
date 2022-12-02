@@ -1,8 +1,6 @@
 package com.example.ex.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,8 +11,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-@Data
 @Table(name = "users")
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
@@ -32,10 +31,6 @@ public class User implements UserDetails {
     private String lastName;
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
-
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
-
     private boolean active;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(

@@ -18,28 +18,30 @@
     <table class="table table-hover">
         <thead class="thead-light">
         <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Product cart
-                <br>id, title, price (руб.)
-            </th>
+            <th>Номер заказа</th>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <th>Покупатель</th>
+            </div>
+            <th>Изображение</th>
+            <th>Название</th>
+            <th>Цена</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr th:each="item : ${selectedOrder.orderItems}">
             <td th:text="${selectedOrder.id}"></td>
-            <td th:text="${selectedOrder.user.username}"></td>
-            <td>
-                <table>
-                    <tr th:each="item : ${selectedOrder.orderItems}">
-                        <td th:text="${item.product.id}"></td>
-                        <td th:text="${item.product.title}"></td>
-                        <td th:text="${item.product.price}"></td>
-                    </tr>
-                </table>
-            </td>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <td th:text="${selectedOrder.user.username}"></td>
+            </div>
+            <td><img src="" style="height: 80px; width: 50px;"
+                     th:src="*{'data:image/jpeg;base64,'+{item.product.image}}"></td>
+            <td th:text="${item.product.title}"></td>
+            <td th:text="${item.product.price}"></td>
         </tr>
-        </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
     </table>
     <div><a class="btn btn-danger"
             th:href="@{'/orders/order-details/remove/' + ${selectedOrder.id}}">Cancel order</a>

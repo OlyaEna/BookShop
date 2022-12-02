@@ -1,6 +1,8 @@
 package com.example.ex.model.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;

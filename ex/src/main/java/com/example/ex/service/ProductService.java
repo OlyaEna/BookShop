@@ -51,5 +51,4 @@ public interface ProductService {
 
     List<ProductDto> exampleProducts();
 
-
 }

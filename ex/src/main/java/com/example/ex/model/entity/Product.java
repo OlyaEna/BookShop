@@ -1,19 +1,16 @@
 package com.example.ex.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
 
 @Entity
 @Table(name = "products")
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
@@ -50,12 +47,10 @@ public class Product {
     private boolean bestseller;
 
 
-
     @PrePersist
     private void init() {
         dateOfCreated = LocalDateTime.now();
     }
-
 
 
 }
