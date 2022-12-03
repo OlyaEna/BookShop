@@ -51,4 +51,7 @@ public interface ProductService {
 
     List<ProductDto> exampleProducts();
 
+    List<ProductDto> search(String keyword);
+
+
 }

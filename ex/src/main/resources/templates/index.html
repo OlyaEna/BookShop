@@ -59,6 +59,9 @@
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 row-cols-md-5  g-5">
                             <div class="col" th:each="product : ${viewProducts}">
                                 <div class="card h-100 shadow-sm">
+                                    <div class="badge bg-dark text-white position-absolute"
+                                         style="top: 0.5rem; right: 0.5rem">Бестселлер
+                                    </div>
                                     <img src="" style="height: 300px; width: 219px;"
                                          th:src="*{'data:image/jpeg;base64,'+{product.image}}"/>
 
@@ -104,7 +107,6 @@
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 row-cols-md-5  g-5">
                         <div class="col mb-5" th:each="product : ${listNewProducts}">
                             <div class="card h-100">
-                                <!-- Sale badge-->
                                 <div class="badge bg-dark text-white position-absolute"
                                      style="top: 0.5rem; right: 0.5rem">New
                                 </div>

@@ -60,15 +60,15 @@
             </thead>
             <tbody>
             <tr th:each="product:${products}">
-                <th scope="row" th:text="${product.title}"></th>
+
+                <th><a th:href="@{/books/{id}(id=${product.id})}" scope="row" th:text="${product.title}"></a></th>
                 <td th:text="${product.author.fio}">
-                    <!--                    <li th:each="author: ${product.authors}" th:text="${author.fio}"></li>-->
                 </td>
                 <td th:text="${product.category.name}"></td>
                 <td th:text="${product.genre.name}"></td>
                 <td th:text="${product.series.name}"></td>
                 <td th:text="${product.publisher.name}"></td>
-                <td th:text="${product.price}"></td>
+                <td th:text="${product.price}">руб.</td>
                 <td th:text="${product.ISBN}"></td>
                 <td><img src="" style="height: 80px; width: 50px;"
                          th:src="*{'data:image/jpeg;base64,'+{product.image}}"></td>

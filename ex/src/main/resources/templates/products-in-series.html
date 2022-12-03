@@ -27,6 +27,7 @@
             <div id="sidebar" class="collapse collapse-horizontal show border-end">
                 <div id="sidebar-nav"
                      class="list-group border-0 rounded-0 text-sm-start min-vh-100">
+                    <a th:href="@{/books}" class="list-group-item border-end-0 d-inline-block text-truncate" th:text="Назад"/>
                     <a th:each="seri : ${series}" class="list-group-item border-end-0 d-inline-block text-truncate"
                        data-bs-parent="#sidebar" th:text="${seri.name}"
                        th:href="@{/books/series/{id}(id = ${seri.id})}"> </a>
@@ -40,6 +41,7 @@
             <div class="album py-5 bg-">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 row-cols-md-5 g-5">
+
                         <div class="col" th:each="product : ${products}" th:if="${product.activated}">
                             <div class="card h-100 shadow-sm">
                                 <img src="" style="height: 300px; width: 219px;"

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -89,8 +91,7 @@ public class ProductsController {
     public String processUpdate(@PathVariable("id") Long id,
                                 @ModelAttribute("productDto") ProductDto productDto,
                                 @RequestParam("imageProduct") MultipartFile imageProduct,
-                                RedirectAttributes attributes
-    ) {
+                                RedirectAttributes attributes) {
         try {
             productService.update(imageProduct, productDto);
             attributes.addFlashAttribute("success", "Update successfully!");
@@ -113,7 +114,7 @@ public class ProductsController {
 
 
     @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String enabledProduct(@PathVariable("id") Long id, RedirectAttributes attributes) {
+    public String enabledProduct(@PathVariable("id") Long id, RedirectAttributes attributes, HttpServletRequest request) {
         try {
             productService.enableById(id);
             attributes.addFlashAttribute("success", "Enabled successfully!");
@@ -121,11 +122,11 @@ public class ProductsController {
             e.printStackTrace();
             attributes.addFlashAttribute("error", "Failed to enabled!");
         }
-        return "redirect:/admin/products/0";
+        return getPreviousPageByRequest(request).orElse("/");
     }
 
     @RequestMapping(value = "/delete-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String deletedProduct(@PathVariable("id") Long id, RedirectAttributes attributes) {
+    public String deletedProduct(@PathVariable("id") Long id, RedirectAttributes attributes, HttpServletRequest request) {
         try {
             productService.deleteById(id);
             attributes.addFlashAttribute("success", "Deleted successfully!");
@@ -133,7 +134,7 @@ public class ProductsController {
             e.printStackTrace();
             attributes.addFlashAttribute("error", "Failed to deleted");
         }
-        return "redirect:/admin/products/0";
+        return getPreviousPageByRequest(request).orElse("/");
     }
 
     @GetMapping("/search-result/{pageNo}")
@@ -150,15 +151,19 @@ public class ProductsController {
     }
 
     @PostMapping("/bestseller/{id}")
-    public String bestseller(@PathVariable("id") Long id) {
+    public String bestseller(@PathVariable("id") Long id, HttpServletRequest request) {
         productService.bestsellerById(id);
-        return "redirect:/admin/products/0";
+        return getPreviousPageByRequest(request).orElse("/");
     }
 
     @PostMapping("/novelty/{id}")
-    public String novelty(@PathVariable("id") Long id) {
+    public String novelty(@PathVariable("id") Long id, HttpServletRequest request) {
         productService.noveltyById(id);
-        return "redirect:/admin/products/0";
+        return getPreviousPageByRequest(request).orElse("/");
+    }
+
+    protected Optional<String> getPreviousPageByRequest(HttpServletRequest request) {
+        return Optional.ofNullable(request.getHeader("Referer")).map(requestUrl -> "redirect:" + requestUrl);
     }
 
 

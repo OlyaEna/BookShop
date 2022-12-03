@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setActive(userDto.isActive());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleRepository.findByName("ROLE_USER");
+        Role role = roleRepository.findByName("ROLE_ADMIN");
         if (role == null) {
             role = checkRoleExist();
         }

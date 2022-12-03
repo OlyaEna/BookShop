@@ -48,5 +48,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> exampleProducts();
 
     Product findProductsByIdAndAndTitle(Long id, String title);
+    @Query("select p from Product p where p.is_activated = true and p.title like  %?1% or p.author.fio like %?1% ")
+    List<Product> search(String keyword);
+
+
 
 }

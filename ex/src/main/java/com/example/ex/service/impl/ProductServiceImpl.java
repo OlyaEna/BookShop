@@ -301,5 +301,13 @@ public class ProductServiceImpl implements ProductService {
         return productDtoList;
     }
 
+    @Override
+    public List<ProductDto> search(String keyword) {
+        List<Product> products =  productRepository.search(keyword);
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
+
+
 }
 
