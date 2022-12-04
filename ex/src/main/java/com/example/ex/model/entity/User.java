@@ -32,6 +32,13 @@ public class User implements UserDetails {
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
     private boolean active;
+    private String country;
+    private String city;
+    private String address;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -39,33 +46,6 @@ public class User implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private List<Role> roles = new ArrayList<>();
-
-
-
-//    private String lastName;
-
-//    @Transient
-//    private String passwordConfirm;
-//    @Column(name = "username", unique = true)
-//    private String username;
-//    private String phoneNumber;
-
-    //    private boolean active;
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Bucket bucket;
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"))
-//    @Enumerated(EnumType.STRING)
-
-//    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-//    private List<Order> orders;
-//    private LocalDateTime dateOfCreation;
-
-//    @PrePersist
-//    private void init() {
-//        dateOfCreation = LocalDateTime.now();
-//    }
 
 
     @Override

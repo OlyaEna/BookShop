@@ -43,14 +43,7 @@ create table order_items
 create table orders
 (
     id            bigint           not null auto_increment,
-    address       varchar(255),
-    city          varchar(255),
-    country       varchar(255),
     created       datetime(6),
-    delivery_date datetime(6),
-    notes         varchar(255),
-    order_date    datetime(6),
-    order_status  varchar(255),
     total_price   double precision not null,
     user_id       bigint,
     primary key (id)

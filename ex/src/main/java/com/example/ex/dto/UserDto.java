@@ -27,8 +27,11 @@ public class UserDto {
     private String phoneNumber;
     @Size(min = 4, max = 20, message = "Password should have 5-20 characters")
     private String password;
-
     private boolean active;
+    private String country;
+    private String city;
+    private String address;
+    private String image;
 
 
 }

@@ -15,8 +15,6 @@ public class ProductDto {
     private String title;
     private String description;
     private double price;
-    //    private List <Genre> genres;
-//    private List <Author> authors;
     private Genre genre;
     private Author  author;
     private Series series;

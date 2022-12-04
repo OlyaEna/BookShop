@@ -21,16 +21,9 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date orderDate;
     @CreationTimestamp
     private LocalDateTime created;
-    private Date deliveryDate;
     private double totalPrice;
-    private String orderStatus;
-    private String notes;
-    private String country;
-    private String city;
-    private String address;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;

@@ -8,12 +8,15 @@ import com.example.ex.model.entity.User;
 import com.example.ex.model.repository.RoleRepository;
 import com.example.ex.model.repository.UserRepository;
 import com.example.ex.service.UserService;
+import com.example.ex.utils.ImageUpload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,26 +26,66 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final ImageUpload imageUpload;
+
 
     @Override
-    public void saveUser(UserDto userDto) {
-        User user = new User();
-        user.setId(user.getId());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setPhoneNumber(userDto.getPhoneNumber());
-        user.setActive(userDto.isActive());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleRepository.findByName("ROLE_ADMIN");
-        if (role == null) {
-            role = checkRoleExist();
+    public void saveUser(MultipartFile imageProduct, UserDto userDto) {
+        try {
+            User user = new User();
+            if (imageProduct == null) {
+                user.setImage(null);
+            } else {
+                imageUpload.uploadImage(imageProduct);
+                user.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
+            }
+            user.setId(user.getId());
+            user.setFirstName(userDto.getFirstName());
+            user.setLastName(userDto.getLastName());
+            user.setEmail(userDto.getEmail());
+            user.setPhoneNumber(userDto.getPhoneNumber());
+            user.setActive(userDto.isActive());
+            user.setCountry(userDto.getCountry());
+            user.setCity(userDto.getCity());
+            user.setAddress(userDto.getAddress());
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            Role role = roleRepository.findByName("ROLE_USER");
+            if (role == null) {
+                role = checkRoleExist();
+            }
+            user.setRoles(Arrays.asList(role));
+            userRepository.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        user.setRoles(Arrays.asList(role));
-        userRepository.save(user);
-
     }
-
+    @Override
+    public User update(MultipartFile imageProduct, UserDto userDto) {
+        try {
+            User user = userRepository.getReferenceById(userDto.getId());
+            if (imageProduct == null) {
+                user.setImage(user.getImage());
+            } else {
+                if (imageUpload.checkExisted(imageProduct) == false) {
+                    imageUpload.uploadImage(imageProduct);
+                }
+                user.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
+            }
+            user.setId(user.getId());
+            user.setFirstName(userDto.getFirstName());
+            user.setLastName(userDto.getLastName());
+            user.setEmail(userDto.getEmail());
+            user.setPhoneNumber(userDto.getPhoneNumber());
+            user.setActive(userDto.isActive());
+            user.setCountry(userDto.getCountry());
+            user.setCity(userDto.getCity());
+            user.setAddress(userDto.getAddress());
+            return userRepository.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     private Role checkRoleExist() {
         Role role = new Role();
         role.setName("ROLE_USER");
@@ -69,7 +112,11 @@ public class UserServiceImpl implements UserService {
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
         userDto.setPhoneNumber(user.getPhoneNumber());
-        userDto.setActive(userDto.isActive());
+        userDto.setActive(user.isActive());
+        userDto.setCountry(user.getCountry());
+        userDto.setCity(user.getCity());
+        userDto.setAddress(user.getAddress());
+        userDto.setImage(user.getImage());
         return userDto;
     }
 
@@ -95,8 +142,14 @@ public class UserServiceImpl implements UserService {
         userDto.setLastName(user.getLastName());
         userDto.setPhoneNumber(user.getPhoneNumber());
         userDto.setActive(user.isActive());
+        userDto.setCountry(user.getCountry());
+        userDto.setCity(user.getCity());
+        userDto.setAddress(user.getAddress());
+        userDto.setImage(user.getImage());
         return userDto;
     }
+
+
 
 
 //

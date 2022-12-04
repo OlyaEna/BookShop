@@ -23,35 +23,28 @@ public class OrderController {
 
     private final UserService userService;
 
-    private final ShoppingCart cart;
 
 
-    @GetMapping("")
-    public String showOrders(Model model, Principal principal) {
-        User user = userService.findUserByEmail(principal.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("orders", orderService.getCustomOrders(principal));
-        return "orders";
-    }
+//    @GetMapping("")
+//    public String showOrders(Model model, Principal principal) {
+//        User user = userService.findUserByEmail(principal.getName());
+//        model.addAttribute("user", user);
+//        model.addAttribute("orders", orderService.getCustomOrders(principal));
+//        return "orders";
+//    }
 
-    @GetMapping("/order-details/{id}")
-    public String toOrderDetails(Model model, @PathVariable("id") Long id) {
-        Order selectedOrder = orderService.getOrderById(id);
-        model.addAttribute("selectedOrder", selectedOrder);
-        return "order-details";
-    }
-
-    @GetMapping("/create_order")
-    public String createOrder(Principal principal) {
-        User user = userService.findUserByEmail(principal.getName());
-        Order orderFromItems = orderService.createOrderFromItems(user, cart.getOrderItems());
-        return "redirect:order-details/" + orderFromItems.getId();
-    }
-
-    @GetMapping({"/remove/{id}", "/order-details/remove/{id}"})
-    public String deleteOrderById(@PathVariable("id") Long id) {
-        orderService.deleteOrderById(id);
-        return "redirect:/orders";
-    }
+//
+//    @GetMapping("/create_order")
+//    public String createOrder(Principal principal) {
+//        User user = userService.findUserByEmail(principal.getName());
+//        Order orderFromItems = orderService.createOrderFromItems(user, CartController.class.);
+//        return "redirect:order-details/" + orderFromItems.getId();
+//    }
+//
+//    @GetMapping({"/remove/{id}", "/order-details/remove/{id}"})
+//    public String deleteOrderById(@PathVariable("id") Long id) {
+//        orderService.deleteOrderById(id);
+//        return "redirect:/orders";
+//    }
 
 }

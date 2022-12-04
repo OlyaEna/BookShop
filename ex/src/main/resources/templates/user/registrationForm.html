@@ -5,7 +5,8 @@
 
 <body>
 <!-- Header-->
-<header th:insert="fragments/userHeader :: userHeader"></header><title>Регистрация</title>
+<header th:insert="fragments/userHeader :: userHeader"></header>
+<title>Регистрация</title>
 <br/><br/><br/>
 <div class="container">
     <div class="row col-md-8 offset-md-2">
@@ -23,8 +24,7 @@
                         method="post"
                         role="form"
                         th:action="@{/registration/save}"
-                        th:object="${user}"
-                >
+                        th:object="${user}"  enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label class="form-label">Имя</label>
                         <input
@@ -80,6 +80,45 @@
                         <p th:errors="*{phoneNumber}" class="text-danger"
                            th:if="${#fields.hasErrors('phoneNumber')}"></p>
                     </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Страна</label>
+                        <input
+                                class="form-control"
+                                id="country"
+                                name="country"
+                                placeholder="Введите страну  проживания"
+                                th:field="*{country}"
+                                type="text"
+                        />
+                        <p th:errors="*{country}" class="text-danger"
+                           th:if="${#fields.hasErrors('country')}"></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Город</label>
+                        <input
+                                class="form-control"
+                                id="city"
+                                name="city"
+                                placeholder="Введите город  проживания"
+                                th:field="*{city}"
+                                type="text"
+                        />
+                        <p th:errors="*{city}" class="text-danger"
+                           th:if="${#fields.hasErrors('city')}"></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Адрес</label>
+                        <input
+                                class="form-control"
+                                id="address"
+                                name="address"
+                                placeholder="Введите адрес  проживания"
+                                th:field="*{address}"
+                                type="text"
+                        />
+                        <p th:errors="*{address}" class="text-danger"
+                           th:if="${#fields.hasErrors('address')}"></p>
+                    </div>
 
                     <div class="form-group mb-3">
                         <label class="form-label">Пароль</label>
@@ -93,6 +132,12 @@
                         />
                         <p th:errors="*{password}" class="text-danger"
                            th:if="${#fields.hasErrors('password')}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="imageProduct">ИЗОБРАЖЕНИЕ</label>
+                        <div class="col-md-4">
+                            <input id="imageProduct" name="imageProduct" class="input-file" type="file">
+                        </div>
                     </div>
 
                     <div class="form-group">

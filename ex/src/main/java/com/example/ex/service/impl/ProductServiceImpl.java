@@ -13,10 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import com.example.ex.service.ProductService;
 
@@ -139,6 +136,11 @@ public class ProductServiceImpl implements ProductService {
                 : (int) (pageable.getOffset() + pageable.getPageSize());
         List subList = list.subList(startIndex, endIndex);
         return new PageImpl(subList, pageable, list.size());
+    }
+
+    @Override
+    public Optional<Product> get(Long id) {
+        return productRepository.findById(id);
     }
 
 //    private ProductDto mapToProductDto(Product product){

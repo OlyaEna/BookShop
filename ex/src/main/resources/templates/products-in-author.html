@@ -13,7 +13,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/newstyles.css" rel="stylesheet"/>
-    <link href="/css/sidebargenres.css.css" rel="stylesheet"/>
+    <link href="/css/sidebargenres.css" rel="stylesheet"/>
     <title>Авторы</title>
 
 </head>
@@ -27,7 +27,8 @@
             <div id="sidebar" class="collapse collapse-horizontal show border-end">
                 <div id="sidebar-nav"
                      class="list-group border-0 rounded-0 text-sm-start min-vh-100">
-                    <a th:href="@{/books}"  class="list-group-item border-end-0 d-inline-block text-truncate" th:text="Назад"/>
+                    <a th:href="@{/books}" class="list-group-item border-end-0 d-inline-block text-truncate"
+                       th:text="Назад"/>
                     <a th:each="auth : ${authors}" class="list-group-item border-end-0 d-inline-block text-truncate"
                        data-bs-parent="#sidebar" th:text="${auth.fio}"
                        th:href="@{/books/author/{id}(id = ${auth.id})}"> </a>
@@ -55,28 +56,20 @@
                                         <span class="text-muted text-decoration-line" th:text="${product.price}"></span>
                                     </div>
                                 </div>
-                                <div sec:authorize="hasRole('ROLE_USER')">
+                                <div sec:authorize="isAnonymous()">
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center">
-                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                                                        th:href="@{'/cart/add/' + ${product.id}}">Добавить
-                                                в корзину</a></div>
-                                        </div>
-                                    </div>
-                                    <div sec:authorize="isAnonymous()">
-                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                                                        href="/login">Добавить
-                                                в корзину</a></div>
-                                        </div>
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                                    href="/login">Добавить
+                                            в корзину</a></div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
+
                 </div>
+            </div>
 
         </main>
     </div>

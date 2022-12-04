@@ -26,6 +26,10 @@
                                  th:src="*{'data:image/jpeg;base64,'+{product.image}}"/>
                         </div>
                         <div class="col-md-6">
+
+
+                            <form th:action="@{/cart}" method="post">
+                            <input type="hidden" th:value="${product.id}" name="id">
                             <h1 class="display-5 fw-bolder" th:text="${product.title}"></h1>
                             <div class="fs-5 mb-5">
                                 <span class="text-decoration-underline" th:text="${product.price}"></span>
@@ -37,14 +41,13 @@
                             <p> Издатель: <span class="lead" th:text="${product.publisher.name}"> </span></p>
                             <p> ISBN: <span class="lead" th:text="${product.ISBN}">  </span></p>
                             <p class="lead" th:text="${product.description}"></p>
+                                <li class="list-group-item"><h6>
+                                    Количество: <input type="number" id="quantity" name="quantity"
+                                                     autocomplete="off" min="1" max="5" value="1">
+                                </h6></li>
+                            <button type="submit" class="btn btn-dark">Добавить в корзину</button>
+
                             <div class="d-flex">
-                                <div sec:authorize="hasRole('ROLE_USER')">
-                                    <div class="text-center">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                                                    th:href="@{'/cart/add/' + ${product.id}}">Добавить
-                                            в корзину</a></div>
-                                    </div>
-                                </div>
                                 <div sec:authorize="isAnonymous()">
                                     <a href="/login">
                                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -54,6 +57,7 @@
                                     </a>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
