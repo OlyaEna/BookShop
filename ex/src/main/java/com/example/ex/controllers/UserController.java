@@ -23,7 +23,7 @@ public class UserController {
     private final OrderService orderService;
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("user") User user) {
+    public String login() {
         return "/user/login";
     }
 
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/registration/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto userDto, @RequestParam("imageProduct") MultipartFile imageProduct,
+    public String registration(@Valid UserDto userDto, @RequestParam("imageProduct") MultipartFile imageProduct,
                                BindingResult result,
                                Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
@@ -53,16 +53,15 @@ public class UserController {
     }
 
     @GetMapping("/user/update")
-    public String showUserForm(UserDto userDto, Model model) {
-        User existingUser = userService.findUserByEmail(userDto.getEmail());
+    public String showUserForm(Principal principal, Model model) {
+        User existingUser = userService.findUserByEmail(principal.getName());
         model.addAttribute("existingUser", existingUser);
         return "user/update-user";
     }
 
 
     @PostMapping("/user/update")
-    public String processUpdate( @ModelAttribute("existingUser") UserDto userDto,
-                                @RequestParam("imageProduct") MultipartFile imageProduct) {
+    public String processUpdate(UserDto userDto, @RequestParam("imageProduct") MultipartFile imageProduct) {
         try {
             userService.update(imageProduct, userDto);
         } catch (Exception e) {
@@ -76,6 +75,11 @@ public class UserController {
         User user = userService.findUserByEmail(principal.getName());
         model.addAttribute("user", user);
         return "user/personal";
+    }
+
+    @GetMapping("/user/ban")
+    public String banInformation() {
+        return "/information/ban";
     }
 
 

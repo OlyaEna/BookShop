@@ -68,11 +68,8 @@ public class CartController {
 
     @GetMapping("/getCart")
     public String getCart(Model model) {
-
         model.addAttribute("cart", orderItems);
         model.addAttribute("order", order);
-
-
         return "user/user-cart";
     }
 

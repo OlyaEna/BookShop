@@ -14,7 +14,7 @@
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/newstyles.css" rel="stylesheet"/>
     <link href="/css/sidebar.css" rel="stylesheet"/>
-    <title>Все Книги</title>
+    <title>Корзина</title>
 
 </head>
 <body>
@@ -27,7 +27,7 @@
     </h1>
 
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{/static}">Главная</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/}">Главная</a></li>
         <li class="breadcrumb-item active">Корзина</li>
     </ol>
 
@@ -40,9 +40,9 @@
                         <thead>
                         <tr>
                             <th scope="col">Продукт</th>
-                            <th scope="col">Цена</th>
+                            <th scope="col">Цена, руб. </th>
                             <th scope="col">Количество</th>
-                            <th scope="col">Total</th>
+                            <th scope="col">Итог, руб. </th>
                             <th scope="col">Изображение</th>
                             <th scope="col">Действие</th>
 
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="col-lg-3">
-                    <h2 class="card-title">Итоговая сумма</h2>
+                    <h2 class="card-title">Итоговая сумма, руб. </h2>
 
                     <ul class="list-group">
                         <li class="list-group-item"><h5 th:text="${order.totalPrice}"></h5></li>

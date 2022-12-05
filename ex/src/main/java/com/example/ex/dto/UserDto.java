@@ -28,9 +28,13 @@ public class UserDto {
     @Size(min = 4, max = 20, message = "Password should have 5-20 characters")
     private String password;
     private boolean active;
+    @NotEmpty(message = "Country should not be empty")
     private String country;
+    @NotEmpty(message = "City should not be empty")
     private String city;
+    @NotEmpty(message = "Address should not be empty")
     private String address;
+    @NotEmpty(message = "Image should not be empty")
     private String image;
 
 

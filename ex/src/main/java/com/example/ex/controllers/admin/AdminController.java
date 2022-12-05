@@ -42,9 +42,4 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/orders")
-    public String showOrdersAdmin(Model model, Principal principal) {
-        model.addAttribute("orders", orderService.getAllOrders());
-        return "ordersAdmin";
-    }
 }

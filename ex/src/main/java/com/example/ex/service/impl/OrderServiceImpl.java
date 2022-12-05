@@ -23,7 +23,6 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     private final UserService userService;
-    private final RoleRepository roleRepository;
 
 
     public Order createOrderFromItems(User user, List<OrderItem> orderItems) {

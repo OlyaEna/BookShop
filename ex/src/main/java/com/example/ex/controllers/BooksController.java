@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -30,6 +31,7 @@ public class BooksController {
     private final AuthorService authorService;
     private final SeriesService seriesService;
     private final CategoryService categoryService;
+    private final UserService userService;
 
     @GetMapping()
     public String books(Model model) {
@@ -49,11 +51,12 @@ public class BooksController {
 
 
     @GetMapping("/{id}")
-    public String productInfo(@PathVariable(value = "id") Long id, Model model) {
+    public String productInfo(@PathVariable(value = "id") Long id, Model model, Principal principal) {
         List<ProductDto> exampleProducts = productService.exampleProducts();
         model.addAttribute("exampleProducts", exampleProducts);
         ProductDto product = productService.getById(id);
         model.addAttribute("product", product);
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         return "item";
     }
 

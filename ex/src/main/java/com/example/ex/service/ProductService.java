@@ -4,11 +4,13 @@ import com.example.ex.dto.ProductDto;
 import com.example.ex.model.entity.Author;
 import com.example.ex.model.entity.Genre;
 import com.example.ex.model.entity.Product;
+import com.example.ex.model.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,7 +57,5 @@ public interface ProductService {
     List<ProductDto> search(String keyword);
 
      Optional<Product> get(Long id);
-
-
 
 }

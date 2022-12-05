@@ -6,6 +6,7 @@ import com.example.ex.model.entity.Product;
 import com.example.ex.model.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface UserService {
@@ -20,5 +21,8 @@ public interface UserService {
     public UserDto getById(Long id);
 
     User update(MultipartFile imageProduct, UserDto userDto);
+
+    User getUserByPrincipal(Principal principal);
+
 
 }

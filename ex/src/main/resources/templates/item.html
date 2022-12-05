@@ -29,34 +29,45 @@
 
 
                             <form th:action="@{/cart}" method="post">
-                            <input type="hidden" th:value="${product.id}" name="id">
-                            <h1 class="display-5 fw-bolder" th:text="${product.title}"></h1>
-                            <div class="fs-5 mb-5">
-                                <span class="text-decoration-underline" th:text="${product.price}"></span>
-                            </div>
-                            <p> Автор: <span class="lead" th:text="${product.author.fio}"> </span></p>
-                            <p> Категория: <span class="lead" th:text="${product.category.name}"></span></p>
-                            <p> Жанр: <span class="lead" th:text="${product.genre.name}"> </span></p>
-                            <p> Серия: <span class="lead" th:text="${product.series.name}"></span></p>
-                            <p> Издатель: <span class="lead" th:text="${product.publisher.name}"> </span></p>
-                            <p> ISBN: <span class="lead" th:text="${product.ISBN}">  </span></p>
-                            <p class="lead" th:text="${product.description}"></p>
-                                <li class="list-group-item"><h6>
-                                    Количество: <input type="number" id="quantity" name="quantity"
-                                                     autocomplete="off" min="1" max="5" value="1">
-                                </h6></li>
-                            <button type="submit" class="btn btn-dark">Добавить в корзину</button>
-
-                            <div class="d-flex">
-                                <div sec:authorize="isAnonymous()">
-                                    <a href="/login">
+                                <input type="hidden" th:value="${product.id}" name="id">
+                                <h1 class="display-5 fw-bolder" th:text="${product.title}"></h1>
+                                <div class="fs-5 mb-5">
+                                    <span class="text-decoration-underline" th:text="${product.price}"></span>
+                                </div>
+                                <p> Автор: <span class="lead" th:text="${product.author.fio}"> </span></p>
+                                <p> Категория: <span class="lead" th:text="${product.category.name}"></span></p>
+                                <p> Жанр: <span class="lead" th:text="${product.genre.name}"> </span></p>
+                                <p> Серия: <span class="lead" th:text="${product.series.name}"></span></p>
+                                <p> Издатель: <span class="lead" th:text="${product.publisher.name}"> </span></p>
+                                <p> ISBN: <span class="lead" th:text="${product.ISBN}">  </span></p>
+                                <p class="lead" th:text="${product.description}"></p>
+                                <li class="list-group-item">
+                                    <h6>
+                                        Количество: <input type="number" id="quantity" name="quantity"
+                                                           autocomplete="off" min="1" max="5" value="1">
+                                    </h6></li>
+                                <div th:switch="${user.active}">
+                                    <p th:case="${false}"><a href="/user/ban">
                                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
                                             <i class="bi-cart-fill me-1"></i>
                                             Добавить в корзину
                                         </button>
-                                    </a>
+                                    </a></p>
+                                    <p th:case="${true}">
+                                        <button type="submit" class="btn btn-dark">Добавить в корзину</button>
+                                    </p>
                                 </div>
-                            </div>
+
+                                <div class="d-flex">
+                                    <div sec:authorize="isAnonymous()">
+                                        <a href="/login">
+                                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                                <i class="bi-cart-fill me-1"></i>
+                                                Добавить в корзину
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

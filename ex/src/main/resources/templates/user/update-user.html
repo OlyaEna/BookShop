@@ -14,7 +14,7 @@
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/newstyles.css" rel="stylesheet"/>
     <link href="/css/sidebar.css" rel="stylesheet"/>
-    <title>Главная Страница</title>
+    <title>Редактирование</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@
             <div class="col">
                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item active" aria-current="page">Мой профиль</li>
+                        <li class="breadcrumb-item"><a href="/user/personal">Мой профиль</a></li>
                         <li class="breadcrumb-item"><a href="/user/my-orders">Мои заказы</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Редактировать профиль</li>
                     </ol>
@@ -36,6 +36,7 @@
 
         <form class="form-horizontal" th:action="@{/user/update}" method="post"
               enctype="multipart/form-data" th:object="${existingUser}">
+            <input type="hidden" th:value="${existingUser.id}" name="id">
             <legend>Редактировать Профиль</legend>
             <div class="form-group mb-3">
                 <label class="form-label">Имя</label>
@@ -58,18 +59,6 @@
                         placeholder="Введите фамилию"
                         th:field="*{lastName}"
                         type="text"
-                />
-            </div>
-
-            <div class="form-group mb-3">
-                <label class="form-label">Email</label>
-                <input
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="Введите email"
-                        th:field="*{email}"
-                        type="email"
                 />
             </div>
 
@@ -118,17 +107,17 @@
                 />
             </div>
 
-            <div class="form-group mb-3">
-                <label class="form-label">Пароль</label>
-                <input
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        placeholder="Введите пароль"
-                        th:field="*{password}"
-                        type="password"
-                />
-            </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Пароль</label>
+                            <input
+                                    class="form-control"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Введите пароль"
+                                    th:field="*{password}"
+                                    type="password"
+                            />
+                        </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="imageProduct">ИЗОБРАЖЕНИЕ</label>
                 <div class="col-md-4">

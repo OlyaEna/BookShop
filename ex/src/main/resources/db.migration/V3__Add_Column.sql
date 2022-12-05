@@ -8,7 +8,14 @@ ALTER TABLE users add column city varchar(255);
 ALTER TABLE users add column address varchar(255);
 ALTER TABLE users add column image MEDIUMBLOB;
 
-DELETE FROM users WHERE id=7;
+DELETE FROM users WHERE id=12;
+
+
+
+
+
+
+
 
 
 

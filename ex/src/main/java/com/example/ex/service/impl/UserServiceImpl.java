@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -74,12 +75,12 @@ public class UserServiceImpl implements UserService {
             user.setId(user.getId());
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
-            user.setEmail(userDto.getEmail());
             user.setPhoneNumber(userDto.getPhoneNumber());
             user.setActive(userDto.isActive());
             user.setCountry(userDto.getCountry());
             user.setCity(userDto.getCity());
             user.setAddress(userDto.getAddress());
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             return userRepository.save(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,7 +151,10 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) return new User();
+        return userRepository.findByEmail(principal.getName());
+    }
 
 //
 //

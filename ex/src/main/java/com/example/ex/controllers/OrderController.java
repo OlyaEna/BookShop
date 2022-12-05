@@ -41,10 +41,6 @@ public class OrderController {
 //        return "redirect:order-details/" + orderFromItems.getId();
 //    }
 //
-//    @GetMapping({"/remove/{id}", "/order-details/remove/{id}"})
-//    public String deleteOrderById(@PathVariable("id") Long id) {
-//        orderService.deleteOrderById(id);
-//        return "redirect:/orders";
-//    }
+//
 
 }

@@ -14,7 +14,7 @@
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/newstyles.css" rel="stylesheet"/>
     <link href="/css/sidebar.css" rel="stylesheet"/>
-    <title>Все Книги</title>
+    <title>Детали Заказа</title>
 
 </head>
 <body>
@@ -29,6 +29,7 @@
             <div sec:authorize="hasRole('ROLE_ADMIN')">
                 <th>Покупатель</th>
             </div>
+            <th>Адрес</th>
             <th>Изображение</th>
             <th>Название</th>
             <th>Цена</th>
@@ -39,8 +40,9 @@
         <tr th:each="item : ${selectedOrder.orderItems}">
             <td th:text="${selectedOrder.id}"></td>
             <div sec:authorize="hasRole('ROLE_ADMIN')">
-                <td th:text="${selectedOrder.user.username}"></td>
+                <td th:text="${selectedOrder.user.email}"></td>
             </div>
+            <td th:text="${selectedOrder.user.country} + ', ' +${selectedOrder.user.city} + ', ' + ${selectedOrder.user.address} "></td>
             <td><img src="" style="height: 80px; width: 50px;"
                      th:src="*{'data:image/jpeg;base64,'+{item.product.image}}"></td>
             <td th:text="${item.product.title}"></td>
