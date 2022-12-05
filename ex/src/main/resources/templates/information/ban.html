@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:insert="fragments/head :: head"></header>
+<title>Черный список</title>
+<body>
+<!-- Header-->
+<header th:insert="fragments/userHeader :: userHeader"></header>
+<header class="bg-primary bg-danger text-white">
+    <div class="container px-4 text-center">
+        <h1 class="fw-bolder">Вы добавлены в черный список!</h1>
+    </div>
+</header>
+<!-- About section-->
+<section id="about">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <p class="lead">Если вы видите эту страницу, значит, вы нарушили правила сообщества и были внесены в черный список.  </p>
+                <h4>Что делать в данной ситуации?</h4>
+                <ul>
+                    <li>Вы можете связаться с нашей поддержкой по телефону, указанному в  разделе "Контакты" в шапке магазина.</li>
+                    <li>Заполнить на нашем сайте заявку, находящуюся в  разделе "Поддержка" в шапке магазина. </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

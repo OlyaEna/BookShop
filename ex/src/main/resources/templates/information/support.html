@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:insert="fragments/head :: head"></header>
+<title>Поддержка</title>
+<body>
+<!-- Header-->
+<header th:insert="fragments/userHeader :: userHeader"></header>
+<!-- Page content-->
+<form class="py-5" th:action="@{/support}" method="post" th:object="${message}">
+    <div class="container px-5">
+        <!-- Contact form-->
+        <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+            <div class="text-center mb-5">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"></i>
+                </div>
+                <h1 class="fw-bolder">Оставьте свое сообщение</h1>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <!-- Name input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="firstName"  th:field="*{firstName}" type="text" placeholder="Введите свое имя..."
+                               data-sb-validations="required"/>
+                        <label for="firstName">Имя</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="lastName"  th:field="*{lastName}" type="text" placeholder="Введите свою фамилию..."
+                               data-sb-validations="required"/>
+                        <label for="lastName">Фамилия</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="topic"  th:field="*{topic}" type="text" placeholder="Тема..."
+                               data-sb-validations="required"/>
+                        <label for="topic">Тема</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">A topic is required.</div>
+                    </div>
+                    <!-- Email address input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="email" th:field="*{email}" type="email" placeholder="name@example.com"
+                               data-sb-validations="required,email"/>
+                        <label for="email">Email</label>
+                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                    </div>
+                    <!-- Phone number input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="phoneNumber" th:field="*{phoneNumber}" type="tel" placeholder="(123) 456-7890"
+                               data-sb-validations="required"/>
+                        <label for="phoneNumber">Номер телефона</label>
+                        <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.
+                        </div>
+                    </div>
+                    <!-- Message input-->
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="message" th:field="*{message}" type="text" placeholder="Введите свое сообщение сюда..."
+                                  style="height: 10rem" data-sb-validations="required"></textarea>
+                        <label for="message">Сообщение</label>
+                        <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary"  type="submit">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
