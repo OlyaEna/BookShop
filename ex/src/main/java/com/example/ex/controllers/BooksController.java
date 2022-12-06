@@ -41,14 +41,6 @@ public class BooksController {
         return "books";
     }
 
-//    @GetMapping("/page")
-//    public String books(Model model, @PageableDefault( value = 10) Pageable pageable) {
-//        Page<Product> product = productRepository.findAll(pageable);
-//        model.addAttribute("product", product);
-//
-//        return "booksPage";
-//    }
-
 
     @GetMapping("/{id}")
     public String productInfo(@PathVariable(value = "id") Long id, Model model, Principal principal) {
@@ -56,7 +48,7 @@ public class BooksController {
         model.addAttribute("exampleProducts", exampleProducts);
         ProductDto product = productService.getById(id);
         model.addAttribute("product", product);
-        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        model.addAttribute("user", userService.findUserByEmail(principal.getName()));
         return "item";
     }
 

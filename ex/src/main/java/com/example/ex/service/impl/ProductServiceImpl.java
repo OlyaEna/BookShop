@@ -143,22 +143,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id);
     }
 
-//    private ProductDto mapToProductDto(Product product){
-//        ProductDto productDto=new ProductDto();
-//        productDto.setId(product.getId());
-//        productDto.setTitle(product.getTitle());
-//        productDto.setDescription(product.getDescription());
-//        productDto.setPrice(product.getPrice());
-//        productDto.setPublishers(product.getPublishers());
-//        productDto.setAuthors(product.getAuthors());
-//        productDto.setGenres(product.getGenres());
-//        productDto.setImage(product.getImage());
-//        productDto.setActivated(product.is_activated());
-//        productDto.setDeleted(product.is_deleted());
-//        productDto.setISBN(product.getISBN());
-//        return  productDto;
-//    }
-
 
     @Override
     public Product save(MultipartFile imageProduct, ProductDto productDto) {
@@ -170,7 +154,7 @@ public class ProductServiceImpl implements ProductService {
                 imageUpload.uploadImage(imageProduct);
                 product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
             }
-            mapperto(product, productDto);
+            mapperTo(product, productDto);
             product.set_activated(true);
             product.set_deleted(false);
             product.setBestseller(false);
@@ -196,7 +180,7 @@ public class ProductServiceImpl implements ProductService {
                 }
                 product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
             }
-            mapperto(product, productDto);
+            mapperTo(product, productDto);
             return productRepository.save(product);
         } catch (Exception e) {
             e.printStackTrace();
@@ -217,21 +201,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDto> productDtoList = new ArrayList<>();
         for (Product product : products) {
             ProductDto productDto = new ProductDto();
-            productDto.setId(product.getId());
-            productDto.setTitle(product.getTitle());
-            productDto.setDescription(product.getDescription());
-            productDto.setPrice(product.getPrice());
-            productDto.setAuthor(product.getAuthor());
-            productDto.setGenre(product.getGenre());
-            productDto.setSeries(product.getSeries());
-            productDto.setISBN(product.getISBN());
-            productDto.setImage(product.getImage());
-            productDto.setCategory(product.getCategory());
-            productDto.setPublisher(product.getPublisher());
-            productDto.setDeleted(product.is_deleted());
-            productDto.setActivated(product.is_activated());
-            productDto.setBestseller(product.isBestseller());
-            productDto.setNovelty(product.isNovelty());
+            mapper(product,productDto);
             productDtoList.add(productDto);
         }
         return productDtoList;
@@ -255,7 +225,7 @@ public class ProductServiceImpl implements ProductService {
         productDto.setNovelty(product.isNovelty());
     }
 
-    private void mapperto(Product product, ProductDto productDto) {
+    private void mapperTo(Product product, ProductDto productDto) {
         product.setTitle(productDto.getTitle());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
@@ -309,8 +279,5 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDto> productDtoList = transfer(products);
         return productDtoList;
     }
-
-
-
 }
 

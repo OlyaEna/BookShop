@@ -22,7 +22,5 @@ public interface UserService {
 
     User update(MultipartFile imageProduct, UserDto userDto);
 
-    User getUserByPrincipal(Principal principal);
-
 
 }
