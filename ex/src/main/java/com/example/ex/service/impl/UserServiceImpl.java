@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
             user.setLastName(userDto.getLastName());
             user.setEmail(userDto.getEmail());
             user.setPhoneNumber(userDto.getPhoneNumber());
-            user.setActive(userDto.isActive());
+            user.setActive(true);
             user.setCountry(userDto.getCountry());
             user.setCity(userDto.getCity());
             user.setAddress(userDto.getAddress());
@@ -160,12 +160,4 @@ public class UserServiceImpl implements UserService {
 //    }
 //
 
-//
-//    public boolean deleteUser(Long userId) {
-//        if (userRepository.findById(userId).isPresent()) {
-//            userRepository.deleteById(userId);
-//            return true;
-//        }
-//        return false;
-//    }
 }

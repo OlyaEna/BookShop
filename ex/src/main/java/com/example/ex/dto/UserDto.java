@@ -34,7 +34,6 @@ public class UserDto {
     private String city;
     @NotEmpty(message = "Address should not be empty")
     private String address;
-    @NotEmpty(message = "Image should not be empty")
     private String image;
 
 
