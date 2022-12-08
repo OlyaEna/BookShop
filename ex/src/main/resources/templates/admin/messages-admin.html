@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:insert="fragments/head :: head"></header>
+<title>Все сообщения</title>
+<body>
+<!-- Header-->
+<header th:insert="fragments/header :: header"></header>
+<div th:if="${success}" class="text-center alert alert-success">
+    <p th:text="${success}"></p>
+</div>
+
+<div th:if="${failed}" class="text-center alert alert-danger">
+    <p th:text="${failed}"></p>
+</div>
+<section style="background-color: #ffffff;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item active" aria-current="page">Все сообщения</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="container"><h2>Сообщения</h2>
+            <span th:if="${messages.size() == 0}"> Нет сообщений в поддержку</span>
+            <table sec:authorize="isAuthenticated()" th:if="${messages.size() > 0}"
+                   class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th>Номер сообщения</th>
+                    <th>Email</th>
+                    <th>Имя пользователя</th>
+                    <th>Тема сообщения</th>
+                    <th>Детали</th>
+                    <th>Дата</th>
+                    <th>Прочитано</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="mess : ${messages}">
+                    <td th:text="${mess.id}"></td>
+                    <td th:text="${mess.user.email}"></td>
+                    <td th:text="${mess.user.firstName}+ ' ' +${mess.user.lastName}"></td>
+                    <td th:text="${mess.topic}"></td>
+                    <td><a class="btn btn-secondary" th:href="@{'/admin/message-details/' + ${mess.id}}">Детали</a></td>
+                    <td th:text="${mess.created}"></td>
+                    <td th:if="${mess._read == true}" class="bi bi-check-circle">
+                        <form th:action="@{/admin/read-message/{id}(id = ${mess.id})}" method="get">
+                            <button type="submit" class="btn btn-primary">Прочитано</button>
+                        </form>
+                    </td>
+                    <td th:if="${mess._read == false}">
+                        <form th:action="@{/admin/read-message/{id}(id = ${mess.id})}" method="get">
+                            <button type="submit" class="btn btn-primary">Прочитано</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>
