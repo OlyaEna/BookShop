@@ -1,9 +1,6 @@
 package com.example.ex.service.impl;
 
-import com.example.ex.model.entity.Order;
-import com.example.ex.model.entity.OrderItem;
-import com.example.ex.model.entity.Role;
-import com.example.ex.model.entity.User;
+import com.example.ex.model.entity.*;
 import com.example.ex.model.repository.OrderRepository;
 import com.example.ex.model.repository.RoleRepository;
 import com.example.ex.service.OrderService;
@@ -56,5 +53,18 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getCustomOrders(Principal principal) {
         User user = userService.findUserByEmail(principal.getName());
         return getOrderByUser(user);
+    }
+
+    @Override
+    public void doneById(Long id) {
+        Order order = orderRepository.getReferenceById(id);
+        if (order != null) {
+            if (order.is_done()) {
+                order.set_done(false);
+            } else {
+                order.set_done(true);
+            }
+        }
+        orderRepository.save(order);
     }
 }

@@ -143,6 +143,26 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id);
     }
 
+    @Override
+    public List<ProductDto> selection() {
+        List<Product> products = productRepository.selection();
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+    }
+
+    @Override
+    public void selectionById(Long id) {
+        Product product = productRepository.getReferenceById(id);
+        if (product != null) {
+            if (product.isSelection()) {
+                product.setSelection(false);
+            } else {
+                product.setSelection(true);
+            }
+        }
+        productRepository.save(product);
+    }
+
 
     @Override
     public Product save(MultipartFile imageProduct, ProductDto productDto) {
@@ -159,6 +179,7 @@ public class ProductServiceImpl implements ProductService {
             product.set_deleted(false);
             product.setBestseller(false);
             product.setNovelty(true);
+            product.setSelection(false);
             return productRepository.save(product);
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,7 +222,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDto> productDtoList = new ArrayList<>();
         for (Product product : products) {
             ProductDto productDto = new ProductDto();
-            mapper(product,productDto);
+            mapper(product, productDto);
             productDtoList.add(productDto);
         }
         return productDtoList;
@@ -223,6 +244,7 @@ public class ProductServiceImpl implements ProductService {
         productDto.setActivated(product.is_activated());
         productDto.setBestseller(product.isBestseller());
         productDto.setNovelty(product.isNovelty());
+        productDto.setSelection(product.isSelection());
     }
 
     private void mapperTo(Product product, ProductDto productDto) {
@@ -254,7 +276,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> bestseller() {
-        List<Product> products =productRepository.bestseller();
+        List<Product> products = productRepository.bestseller();
         List<ProductDto> productDtoList = transfer(products);
         return productDtoList;
     }
@@ -275,7 +297,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> search(String keyword) {
-        List<Product> products =  productRepository.search(keyword);
+        List<Product> products = productRepository.search(keyword);
         List<ProductDto> productDtoList = transfer(products);
         return productDtoList;
     }

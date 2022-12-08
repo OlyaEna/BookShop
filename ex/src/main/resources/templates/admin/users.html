@@ -27,8 +27,9 @@
                 <li class="nav-item"><a th:href="@{/admin}" class="nav-link link-dark px-2">Панель Администратора</a>
                 </li>
             </div>
-
-
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <li class="nav-item"><a th:href="@{/admin/messages}" class="nav-link link-dark px-2">Поддержка</a></li>
+            </div>
         </ul>
         <ul class="nav">
             <div sec:authorize="isAnonymous()">
@@ -136,11 +137,11 @@
                             <button type="submit" class="btn btn-primary">Бан</button>
                         </form>
                     </td>
-<!--                    <td th:if="${user.active == false}">-->
-<!--                        <form th:action="@{/admin/users/ban/{id}(id = ${user.id})}" method="post">-->
-<!--                            <button type="submit" class="btn btn-primary">Бан</button>-->
-<!--                        </form>-->
-<!--                    </td>-->
+                    <!--                    <td th:if="${user.active == false}">-->
+                    <!--                        <form th:action="@{/admin/users/ban/{id}(id = ${user.id})}" method="post">-->
+                    <!--                            <button type="submit" class="btn btn-primary">Бан</button>-->
+                    <!--                        </form>-->
+                    <!--                    </td>-->
                     <td>
                         <div th:if="${user.active}">
                             <p>АКТИВЕН</p>

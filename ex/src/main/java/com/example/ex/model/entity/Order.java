@@ -29,24 +29,8 @@ public class Order {
     private User user;
     @OneToMany( mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
-
+    private boolean is_done;
 }
-
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-//    @CreationTimestamp
-//    private LocalDateTime created;
-//    @UpdateTimestamp
-//    private LocalDateTime updated;
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User users;
-//    private BigDecimal sum;
-//    private String address;
-//    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-//    private List<OrderDetails> orderDetails;
 
 
 

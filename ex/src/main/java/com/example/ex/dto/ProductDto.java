@@ -26,5 +26,7 @@ public class ProductDto {
     private boolean activated;
     private boolean novelty;
     private boolean bestseller;
+    private boolean selection;
+
 
 }

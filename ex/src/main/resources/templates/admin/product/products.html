@@ -56,6 +56,8 @@
                 <th scope="col">Удалить</th>
                 <th scope="col">Бестселлер</th>
                 <th scope="col">Новинка</th>
+                <th scope="col">Рождественская подборка</th>
+
             </tr>
             </thead>
             <tbody>
@@ -100,6 +102,17 @@
                 <td th:if="${product.novelty == false}">
                     <form th:action="@{/admin/products/novelty/{id}(id = ${product.id})}" method="post">
                         <button type="submit" class="btn btn-primary">Новинка</button>
+                    </form>
+                </td>
+
+                <td th:if="${product.selection == true}" class="bi bi-check-circle">
+                    <form th:action="@{/admin/products/select-book/{id}(id = ${product.id})}" method="get">
+                        <button type="submit" class="btn btn-primary">Подборка</button>
+                    </form>
+                </td>
+                <td th:if="${product.selection == false}">
+                    <form th:action="@{/admin/products/select-book/{id}(id = ${product.id})}" method="get">
+                        <button type="submit" class="btn btn-primary">Подборка</button>
                     </form>
                 </td>
             </tr>

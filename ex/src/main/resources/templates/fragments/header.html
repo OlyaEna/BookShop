@@ -23,11 +23,8 @@
                 <li class="nav-item"><a th:href="@{/admin}" class="nav-link link-dark px-2">Панель Администратора</a></li>
             </div>
             <div sec:authorize="hasRole('ROLE_ADMIN')">
-                <li class="nav-item"><a th:href="@{/admin/support}" class="nav-link link-dark px-2">Поддержка</a></li>
+                <li class="nav-item"><a th:href="@{/admin/messages}" class="nav-link link-dark px-2">Поддержка</a></li>
             </div>
-
-
-
         </ul>
         <ul class="nav">
             <div sec:authorize="isAnonymous()">

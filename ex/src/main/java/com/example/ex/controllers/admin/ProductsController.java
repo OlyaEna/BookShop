@@ -165,6 +165,16 @@ public class ProductsController {
     protected Optional<String> getPreviousPageByRequest(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader("Referer")).map(requestUrl -> "redirect:" + requestUrl);
     }
-
+    @GetMapping("/select-book/{id}")
+    public String select(@PathVariable("id") Long id, RedirectAttributes attributes, HttpServletRequest request) {
+        try {
+            productService.selectionById(id);
+            attributes.addFlashAttribute("success", "Add successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error", "Add to done!");
+        }
+        return getPreviousPageByRequest(request).orElse("/");
+    }
 
 }

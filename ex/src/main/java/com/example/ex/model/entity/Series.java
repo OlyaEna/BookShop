@@ -22,4 +22,12 @@ public class Series {
     @OneToMany(mappedBy="series", fetch=FetchType.EAGER)
     private List<Product> products;
 
+
+
+    public Series(Long id, String name, boolean is_deleted, boolean is_activated) {
+        this.id = id;
+        this.name = name;
+        this.is_deleted = is_deleted;
+        this.is_activated = is_activated;
+    }
 }

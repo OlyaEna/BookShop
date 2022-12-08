@@ -45,7 +45,9 @@ public interface ProductService {
     void noveltyById(Long id);
 
     void bestsellerById(Long id);
+
     List<ProductDto> listViewProducts();
+
     List<ProductDto> listNewProducts();
 
     List<ProductDto> bestseller();
@@ -56,6 +58,11 @@ public interface ProductService {
 
     List<ProductDto> search(String keyword);
 
-     Optional<Product> get(Long id);
+    Optional<Product> get(Long id);
+
+    List<ProductDto> selection();
+
+    void selectionById(Long id);
+
 
 }

@@ -5,6 +5,7 @@ import com.example.ex.dto.PublisherDto;
 import com.example.ex.model.entity.Publisher;
 import com.example.ex.model.repository.PublisherRepository;
 import com.example.ex.service.impl.PublisherServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,10 +13,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,6 +32,7 @@ public class PublisherServiceTest {
     private PublisherRepository publisherRepository;
     @InjectMocks
     private PublisherServiceImpl publisherService;
+
 
     @BeforeEach
     void setUp() {
@@ -80,7 +88,15 @@ public class PublisherServiceTest {
     }
 
     @Test
-    public void updatePublisherByIdTest() {
-
+    public void createPublisher() {
+        Publisher publisher = new Publisher(1L, "OAP", false, true);
+        publisherRepository.save(publisher);
+        assertThat(publisher.getId()).isNotNull();
     }
+
+
+
+
+
 }
+

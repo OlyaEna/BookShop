@@ -78,6 +78,9 @@
                             <th>Номер заказа</th>
                             <th>Покупатель</th>
                             <th>Детали</th>
+                            <th>Дата</th>
+                            <th>Удалить</th>
+                            <th>Готов</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -87,10 +90,25 @@
                             <td th:text="${order.user.email}"></td>
                             <td><a class="btn btn-secondary" th:href="@{'/order-details/' + ${order.id}}">Детали</a>
                             </td>
+                            <td th:text="${order.created}"></td>
                             <td><a class="btn btn-danger" th:href="@{'/admin/orders/remove/' + ${order.id}}">Удалить</a></td>
+                            <td th:if="${order._done == true}" class="bi bi-check-circle">
+                                <form th:action="@{/admin/done-order/{id}(id = ${order.id})}" method="get">
+                                    <button type="submit" class="btn btn-primary">Готов</button>
+                                </form>
+                            </td>
+                            <td th:if="${order._done == false}">
+                                <form th:action="@{/admin/done-order/{id}(id = ${order.id})}" method="get">
+                                    <button type="submit" class="btn btn-primary">Готов</button>
+                                </form>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>

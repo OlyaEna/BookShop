@@ -103,6 +103,13 @@ public class BooksController {
         return "bestseller";
     }
 
+    @GetMapping("/christmas")
+    public String christmas(Model model) {
+        List<ProductDto> christmas = productService.selection();
+        model.addAttribute("christmas", christmas);
+        return "books/christmas";
+    }
+
     @GetMapping("/new")
     public String novelty(Model model) {
         List<ProductDto> novelty = productService.novelty();

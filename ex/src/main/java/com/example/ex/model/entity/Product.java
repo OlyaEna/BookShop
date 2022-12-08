@@ -45,6 +45,7 @@ public class Product {
     private boolean is_activated;
     private boolean novelty;
     private boolean bestseller;
+    private boolean selection;
 
 
     @PrePersist

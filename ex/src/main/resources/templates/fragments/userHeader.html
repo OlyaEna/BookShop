@@ -22,6 +22,9 @@
                         <li class="nav-item"><a th:href="@{/admin}" class="nav-link link-dark px-2">Панель
                             Администратора</a></li>
                     </div>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <li class="nav-item"><a th:href="@{/admin/messages}" class="nav-link link-dark px-2">Поддержка</a></li>
+                    </div>
                 </ul>
                 <form th:action="@{/books/search}" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                     <input type="text" class="form-control" name="keyword" placeholder="Поиск...">

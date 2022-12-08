@@ -32,6 +32,6 @@ public class MessageDto {
     @NotEmpty(message = "Topic should not be empty")
     private String topic;
     private User user;
-
+    private boolean is_read;
 
 }

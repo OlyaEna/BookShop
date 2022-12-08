@@ -23,5 +23,5 @@ public interface OrderService {
 
     List<Order> getCustomOrders(Principal principal);
 
-
+    void doneById(Long id);
 }

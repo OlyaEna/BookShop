@@ -36,6 +36,7 @@ public class MessageServiceImp implements MessageService {
             message.setMessage(messageDto.getMessage());
             message.setTopic(messageDto.getTopic());
             message.setUser(messageDto.getUser());
+            message.set_read(false);
             message.setUser(user);
             return messageRepository.save(message);
         } catch (Exception e) {
@@ -48,7 +49,7 @@ public class MessageServiceImp implements MessageService {
         List<MessageDto> messageDtoList = new ArrayList<>();
         for (Message message : messages) {
             MessageDto messageDto = new MessageDto();
-          mapper(message, messageDto);
+            mapper(message, messageDto);
             messageDtoList.add(messageDto);
         }
         return messageDtoList;
@@ -85,7 +86,26 @@ public class MessageServiceImp implements MessageService {
         messageDto.setFirstName(message.getFirstName());
         messageDto.setLastName(message.getLastName());
         messageDto.setPhoneNumber(message.getPhoneNumber());
+        messageDto.set_read(message.is_read());
     }
 
+    public List<MessageDto> getAllMessages() {
+        List<Message> messages = messageRepository.findAll();
+        List<MessageDto> messageDtoList = transfer(messages);
+        return messageDtoList;
+    }
+
+    @Override
+    public void readById(Long id) {
+       Message message=messageRepository.getReferenceById(id);
+        if (message != null) {
+            if (message.is_read()) {
+                message.set_read(false);
+            } else {
+                message.set_read(true);
+            }
+        }
+        messageRepository.save(message);
+    }
 
 }
