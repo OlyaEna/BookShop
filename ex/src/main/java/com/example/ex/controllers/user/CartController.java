@@ -1,4 +1,4 @@
-package com.example.ex.controllers;
+package com.example.ex.controllers.user;
 
 import com.example.ex.model.entity.Order;
 import com.example.ex.model.entity.OrderItem;

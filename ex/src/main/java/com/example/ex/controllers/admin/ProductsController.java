@@ -172,7 +172,7 @@ public class ProductsController {
             attributes.addFlashAttribute("success", "Add successfully!");
         } catch (Exception e) {
             e.printStackTrace();
-            attributes.addFlashAttribute("error", "Add to done!");
+            attributes.addFlashAttribute("error", "Not added!");
         }
         return getPreviousPageByRequest(request).orElse("/");
     }

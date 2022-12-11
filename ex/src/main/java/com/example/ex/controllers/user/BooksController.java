@@ -1,15 +1,10 @@
-package com.example.ex.controllers;
+package com.example.ex.controllers.user;
 
 import com.example.ex.dto.*;
-import com.example.ex.model.entity.Genre;
-import com.example.ex.model.entity.Product;
 import com.example.ex.model.repository.ProductRepository;
 import com.example.ex.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +33,7 @@ public class BooksController {
         List<ProductDto> productDto = productService.findAll();
         model.addAttribute("productDto", productDto);
 
-        return "books";
+        return "books/books";
     }
 
 
@@ -49,7 +44,7 @@ public class BooksController {
         ProductDto product = productService.getById(id);
         model.addAttribute("product", product);
         model.addAttribute("user", userService.findUserByEmail(principal.getName()));
-        return "item";
+        return "books/item";
     }
 
     @GetMapping("/genre/{id}")
@@ -60,7 +55,7 @@ public class BooksController {
         model.addAttribute("products", products);
         model.addAttribute("genre", genre);
         model.addAttribute("genres", genres);
-        return "products-in-genre";
+        return "books/products-in-genre";
     }
 
     @GetMapping("/author/{id}")
@@ -71,7 +66,7 @@ public class BooksController {
         model.addAttribute("products", products);
         model.addAttribute("author", author);
         model.addAttribute("authors", authors);
-        return "products-in-author";
+        return "books/products-in-author";
     }
 
     @GetMapping("/category/{id}")
@@ -82,7 +77,7 @@ public class BooksController {
         model.addAttribute("products", products);
         model.addAttribute("category", category);
         model.addAttribute("categories", categories);
-        return "products-in-category";
+        return "books/products-in-category";
     }
 
     @GetMapping("/series/{id}")
@@ -93,14 +88,14 @@ public class BooksController {
         model.addAttribute("products", products);
         model.addAttribute("ser", ser);
         model.addAttribute("series", series);
-        return "products-in-series";
+        return "books/products-in-series";
     }
 
     @GetMapping("/bestseller")
     public String bestseller(Model model) {
         List<ProductDto> bestseller = productService.bestseller();
         model.addAttribute("bestseller", bestseller);
-        return "bestseller";
+        return "books/bestseller";
     }
 
     @GetMapping("/christmas")
@@ -114,7 +109,7 @@ public class BooksController {
     public String novelty(Model model) {
         List<ProductDto> novelty = productService.novelty();
         model.addAttribute("novelty", novelty);
-        return "novelty";
+        return "books/novelty";
     }
 
     @GetMapping("/search/{pageNo}")
@@ -124,7 +119,7 @@ public class BooksController {
         model.addAttribute("totalPages", products.getTotalPages());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("products", products);
-        return "books";
+        return "books/books";
     }
 
     @GetMapping("/search")
@@ -132,7 +127,7 @@ public class BooksController {
         List<ProductDto> search = productService.search(keyword);
         model.addAttribute("keyword", keyword);
         model.addAttribute("search", search);
-        return "search";
+        return "books/search";
     }
 
 

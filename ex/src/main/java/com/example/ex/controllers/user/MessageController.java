@@ -1,4 +1,4 @@
-package com.example.ex.controllers;
+package com.example.ex.controllers.user;
 
 import com.example.ex.dto.MessageDto;
 import com.example.ex.model.entity.Order;
